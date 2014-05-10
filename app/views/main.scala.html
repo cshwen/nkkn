@@ -1,15 +1,84 @@
-@(title: String)(content: Html)
-
+@(title: String)(usermanage: Html)(content: Html)
 <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+	<title>nkkn网上书城+@title</title>
 
-<html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @content
-    </body>
+	<!-- Included Bootstrap CSS Files -->
+	<link rel="stylesheet" href="@routes.Assets.at("javascripts/bootstrap/css/bootstrap.min.css")" />
+	<link rel="stylesheet" href="@routes.Assets.at("javascripts/bootstrap/css/bootstrap-responsive.min.css")" />
+	
+	<!-- Includes FontAwesome -->
+	<link rel="stylesheet" href="@routes.Assets.at("css/font-awesome/css/font-awesome.min.css")" />
+
+	<!-- Css -->	
+	<link rel="stylesheet" href="@routes.Assets.at("css/style.css")" />
+</head>
+<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="#home">nkkn网上书城</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="active"><a href="#home">首页</a></li>
+						<li class=""><a href="#top">榜单</a></li>
+						<li class=""><a href="#review">书评</a></li>
+						<li class=""><a href="#about">关于</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">E-Commerce <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="index.html">E-commerce</a></li>
+								<li><a href="ecommerce-item.html">E-commerce Item</a></li>
+								<li><a href="ecommerce-cart.html">E-commerce Cart</a></li>
+								<li><a href="ecommerce-checkout.html">E-commerce Checkout</a></li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form form-search pull-left">
+						<div class="input-append">
+						  <input class="search-query span3" id="appendedInputButton" type="text" placeholder="书名、作者、ISBN" class="input-xlarge search-query">
+						  <button class="btn" type="submit"><i class="icon-search"></i></button>
+						</div>
+					</form>
+					<ul class="nav pull-right">
+					@usermanage
+                    </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	@content
+	
+	
+	<hr />
+
+	<footer id="footer" class="vspace20">
+		<div class="container">
+			<div class="row">
+				<div class="span6">
+					<p>&copy; Copyright 2014 .&nbsp;<a href="http://blog.cshwen.com">CShWen</a>&nbsp;&amp;&nbsp;. <a href="#">All Rights Reserved</a></p>
+				</div>
+				<div class="span6">
+					<a class="pull-right" href="http://www.responsivewebmobile.com" target="_blank">待定链接</a>
+				</div>
+			</div>
+		</div>
+	</footer>	
+
+	<script src="@routes.Assets.at("javascripts/jquery-1.10.0.min.js")"></script>
+	<script src="@routes.Assets.at("javascripts/bootstrap/js/bootstrap.min.js")"></script>
+	<script src="@routes.Assets.at("javascripts/holder.js")"></script>
+	<script src="@routes.Assets.at("javascripts/script.js")"></script>
+	
+</body>
 </html>

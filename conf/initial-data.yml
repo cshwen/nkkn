@@ -1,0 +1,37 @@
+
+# Users
+- &csw !!models.User
+    username:      csw
+    password:   csw
+    email:    icshwen@gmail.com
+    role:    1
+    phone:    12345678901
+    regtime:    2014-05-03
+    
+- &lowstz !!models.User
+    username:      lowstz
+    password:   lowstz
+    email:    lowstz@gmail.com
+    role:    1
+    phone:    656565
+    regtime:    2014-05-07
+    
+- &test !!models.User
+    username:    test
+    password:   test
+    email:    test@qq.com
+    role:    3
+    phone:    123456
+    regtime:    2014-07-08
+
+# Books
+- !!models.Book
+    name: 算法导论
+    author:    ThomasHCormenCharlesELeisersonRonaldLRivestCliffordStein
+    publisher:    机械工业出版社
+    ISBN:    9787111187776
+    price:    85.0
+    regtime:    2006-09-01
+    pages:    754
+    score:    9.3
+    summary:    这本书深入浅出

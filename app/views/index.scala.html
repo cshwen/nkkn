@@ -1,7 +1,14 @@
-@(message: String)
+@(message: String, user: User)
 
-@main("Welcome to Play") {
-
-    @play20.welcome(message, style = "Java")
-
+@usermanage = {
+	@if(user == null) {
+		<li><a href="@routes.Application.login">登陆/注册</a></li>
+	} else {
+		<li><a href="#">@user.username </a></li>
+		<li class="divider-vertical"></li>
+		<li><a href="@routes.Application.logout">购物车</a></li>
+	}
+}
+@main("主页吗？")(usermanage) {
+	@play20.welcome(message, style = "Java")
 }

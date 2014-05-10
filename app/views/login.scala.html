@@ -1,0 +1,59 @@
+@(form: Form[Application.Login])(rform: Form[Application.Register] )
+
+@usermanage = { }
+@main(" 登录/注册页面")(usermanage){
+<div class="container" style="width:333px">
+	<div class="bs-example bs-example-tabs well">
+      <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#login" data-toggle="tab"> 登 录 </a></li>
+        <li class=""><a href="#register" data-toggle="tab"> 注 册 </a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="login">
+			@helper.form(routes.Application.authenticate) {
+				<h4>Sign in</h4>
+				@if(form.hasGlobalErrors) {
+					<div class="alert alert-error">
+						<span>@form.globalError.message</span>
+					</div>
+				}
+				@if(flash.contains("success")) {
+				    <p class="success">
+				        @flash.get("success")
+				    </p>
+				}
+				<div>
+					<input style="width:92%" id="username" name="username" type="text" placeholder="请输入用户名" required autofocus>
+					<input style="width:92%" id="password" name="password" type="password" placeholder="请输入密码***" required>
+					<label class="checkbox inline">
+						<input type="checkbox" id="RememberMe" value="remember-me"> 下次自动登录
+					</label>
+					<br><br>
+					<button type="submit" class="btn btn-success btn-block">登录</button>
+				</div>
+				<br>
+				<a href="#">注册</a>&nbsp;|&nbsp;<a href="#">忘记密码?</a>
+			}		
+        </div>
+        <div class="tab-pane fade" id="register">
+			@helper.form(routes.Application.registerUser) {
+				<h4>注册页面</h4>
+				@if(rform.hasGlobalErrors) {
+					<div class="alert alert-error">
+						<span>@rform.globalError.message</span>
+					</div>
+				}
+				<div>
+					<input style="width:92%" id="username" name="username" type="text" placeholder="用户名" required autofocus>
+					<input style="width:92%" id="password" name="password" type="password" placeholder="密码" required>
+					<input style="width:92%" id="password_repeat" name="password_repeat" type="password" placeholder="确认密码" required>
+					<input style="width:92%" id="email" name="email" type="email" placeholder="个人邮箱" required>
+					<br><br>
+					<button type="submit" class="btn btn-success btn-block">立即注册</button>
+				</div>
+			}	
+        </div>
+      </div>
+    </div>
+    </div>
+}
