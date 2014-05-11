@@ -3,7 +3,6 @@
 @usermanage = { }
 @main(" 登录/注册页面")(usermanage){
 <div id="sbpwq" class="container" style="width:333px">
-<button class="btn testlogin">测试de</button>
 	<div class="bs-example bs-example-tabs well">
       <ul id="myTab" class="nav nav-tabs">
         <li class="active"><a href="#login" data-toggle="tab"> 登 录 </a></li>
@@ -37,7 +36,7 @@
 			}		
         </div>
         <div class="tab-pane fade" id="register">
-			@helper.form(routes.Application.registerUser) {
+			@helper.form(action=routes.Application.registerUser, 'id -> "register_form") {
 				<h4>注册页面</h4>
 				@if(rform.hasGlobalErrors) {
 					<div class="alert alert-error">
@@ -51,6 +50,7 @@
 					<input style="width:92%" id="email" name="email" type="email" placeholder="个人邮箱" required>
 					<br><br>
 					<button type="submit" class="btn btn-success btn-block">立即注册</button>
+					<button type="button" class="btn sbpwq">test</button>
 				</div>
 			}	
         </div>

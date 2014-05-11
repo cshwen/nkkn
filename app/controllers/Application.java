@@ -8,10 +8,10 @@ import play.mvc.*;
 import views.html.*;
 
 public class Application extends Controller {
-//	@Security.Authenticated(Secured.class)
+	// @Security.Authenticated(Secured.class)
 	public static Result index() {
-//		System.out.println(request().username());
-//		System.out.println(User.getUser(request().username()));
+		// System.out.println(request().username());
+		// System.out.println(User.getUser(request().username()));
 		return ok(index.render("Your new application is ready.",
 				User.getUser(session().get("username"))));
 	}
@@ -53,15 +53,24 @@ public class Application extends Controller {
 	}
 
 	public static Result registerUser() {
-		Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
+		// Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
+		// Form<Register> registerForm = Form.form(Register.class)
+		// .bindFromRequest();
+		// if (registerForm.hasErrors()) {
+		// return badRequest(views.html.login.render(loginForm, registerForm));
+		// } else {
+		// session().clear();
+		// session("username", registerForm.get().username);
+		// return redirect(routes.Application.index());
+		// }
 		Form<Register> registerForm = Form.form(Register.class)
 				.bindFromRequest();
 		if (registerForm.hasErrors()) {
-			return badRequest(views.html.login.render(loginForm, registerForm));
+			return forbidden();
 		} else {
 			session().clear();
 			session("username", registerForm.get().username);
-			return redirect(routes.Application.index());
+			return ok();
 		}
 	}
 
@@ -78,13 +87,12 @@ public class Application extends Controller {
 			return null;
 		}
 	}
-	
+
 	public static Result javascriptRoutes() {
-	    response().setContentType("text/javascript");
-	    return ok(
-	        Routes.javascriptRouter("jsRoutes",
-	        		controllers.routes.javascript.Application.registerUser()
-	        )
-	    );
+		response().setContentType("text/javascript");
+		return ok(Routes.javascriptRouter("jsRoutes",
+				controllers.routes.javascript.Application.registerUser()
+			)
+		);
 	}
 }
