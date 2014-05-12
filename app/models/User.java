@@ -32,7 +32,7 @@ public class User extends Model {
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Comment> comments = new ArrayList<Comment>();
 
-	public User(String username, String passsword, String email) {
+	public User(String username, String password, String email) {
 		this.username = username;
 		this.password = password;
 		this.email = email;

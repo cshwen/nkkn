@@ -66,7 +66,7 @@ public class Application extends Controller {
 		Form<Register> registerForm = Form.form(Register.class)
 				.bindFromRequest();
 		if (registerForm.hasErrors()) {
-			return forbidden();
+			return badRequest();
 		} else {
 			session().clear();
 			session("username", registerForm.get().username);
