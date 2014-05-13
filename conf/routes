@@ -9,6 +9,7 @@ GET    /login                       controllers.Application.login()
 POST   /login                       controllers.Application.authenticate()
 POST   /login                       controllers.Application.registerUser()
 GET    /logout                      controllers.Application.logout()
+PUT    /login                      controllers.Application.isExistUser(username: String)
 
 # Javascript routing
 GET     /assets/javascripts/routes          controllers.Application.javascriptRoutes()

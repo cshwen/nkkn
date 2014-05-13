@@ -36,10 +36,12 @@
 			}		
         </div>
         <div class="tab-pane fade" id="register">
-        	<from id="_form" class="register_form" action="@routes.Application.registerUser">
+        @helper.form(action=routes.Application.registerUser, 'id -> "_form", 'class->"register_form") {
 				<h4>注册页面</h4>
+					@if(rform.hasGlobalErrors) {
 					<div class="alert alert-error">
-					</div>
+						<span>@rform.globalError.message</span>
+					</div> }
 				<div>
 					<input style="width:92%" id="username" name="username" type="text" placeholder="用户名" required autofocus>
 					<input style="width:92%" id="password" name="password" type="password" placeholder="密码" required>
@@ -49,7 +51,7 @@
 					<button id="_process"  type="submit" class="btn btn-success btn-block">立即注册</button>
 					<button type="button" class="btn sbpwq">test</button>
 				</div>
-			</from>
+			}
         </div>
       </div>
     </div>

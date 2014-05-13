@@ -88,11 +88,19 @@ public class Application extends Controller {
 		}
 	}
 
+	public static Result isExistUser(String username) {
+		boolean result = User.isExistUser(username);
+		if (result == true)
+			return badRequest("该用户已存在！");
+		else
+			return ok("该用户名可注册。");
+	}
+
 	public static Result javascriptRoutes() {
 		response().setContentType("text/javascript");
 		return ok(Routes.javascriptRouter("jsRoutes",
-				controllers.routes.javascript.Application.registerUser()
-			)
-		);
+				controllers.routes.javascript.Application.registerUser(),
+				controllers.routes.javascript.Application.isExistUser()
+		));
 	}
 }
