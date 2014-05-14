@@ -31,3 +31,5 @@ RUNNING_PID
 /*.iml
 /out
 /.idea_modules
+
+public/img/*

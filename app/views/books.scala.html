@@ -1,0 +1,5 @@
+@(books: List[Book])
+
+@books.map { book =>
+	@views.html.item_book(book)
+}

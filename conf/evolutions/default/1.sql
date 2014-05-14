@@ -10,10 +10,11 @@ create table book (
   publisher                 varchar(255),
   isbn                      varchar(255),
   price                     double,
-  regtime                   timestamp,
+  pubtime                   timestamp,
   pages                     integer,
   summary                   varchar(255),
   score                     double,
+  stock                     integer,
   constraint pk_book primary key (id))
 ;
 

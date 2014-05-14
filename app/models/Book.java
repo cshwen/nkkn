@@ -24,15 +24,19 @@ public class Book extends Model {
 	public String ISBN;
 	public double price;
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
-	public Date regtime;
+	public Date pubtime;
 	public int pages;
 	public String summary;
 	public double score;
+	public int stock;
 
 	@OneToMany(cascade = CascadeType.ALL)
     public List<Comment> comments = new ArrayList<Comment>();
 	
 	public static Finder<Long, Book> find = new Finder<Long, Book>(Long.class,
 			Book.class);
-	
+
+	public static List<Book> findAll(){
+		return find.all();
+	}
 }

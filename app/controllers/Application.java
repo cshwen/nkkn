@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Book;
 import models.User;
 import play.*;
 import play.data.Form;
@@ -13,7 +14,8 @@ public class Application extends Controller {
 		// System.out.println(request().username());
 		// System.out.println(User.getUser(request().username()));
 		return ok(index.render("Your new application is ready.",
-				User.getUser(session().get("username"))));
+				User.getUser(session().get("username")), Book.findAll()
+		));
 	}
 
 	public static Result login() {
@@ -36,7 +38,7 @@ public class Application extends Controller {
 
 	public static Result logout() {
 		session().clear();
-		flash("success", "You've been logged out");
+		flash("success", "您已退出登录。");
 		return redirect(routes.Application.login());
 	}
 
@@ -100,7 +102,6 @@ public class Application extends Controller {
 		response().setContentType("text/javascript");
 		return ok(Routes.javascriptRouter("jsRoutes",
 				controllers.routes.javascript.Application.registerUser(),
-				controllers.routes.javascript.Application.isExistUser()
-		));
+				controllers.routes.javascript.Application.isExistUser()));
 	}
 }
