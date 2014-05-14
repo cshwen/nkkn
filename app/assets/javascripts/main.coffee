@@ -25,6 +25,7 @@ $ ->
   for input in inputs
     input.blur () ->
       validateInputs($(this), emptyRegEx)
+      isExistUser()
   for input in pwds
     input.blur () ->
       validateInputs($(this), emptyRegEx)
@@ -53,6 +54,7 @@ $ ->
       removeErrorStyle(re_pwd)
     return error
     
+  # 校验输入值
   validateInputs = (inputs, regex) ->
     error = []
     for input in inputs
@@ -75,16 +77,19 @@ $ ->
   isExistUser = () ->
     @username=$("#_form input[name=username]").val()
     r=jsRoutes.controllers.Application.isExistUser(@username)
+    sign=false
     $.ajax
       type: r.type
       url: r.url
+      async: false
       success:(data) ->
-        alert ' yes? '+data
-        return true
+        $("#_form input[name=username]").prev('label').find('.text-error').html(data)
+        sign = true
       error:(err)->
-        alert err.responseText
-        return false
-        
+        $("#_form input[name=username]").prev('label').find('.text-error').html(err.responseText)
+        sign = false
+    return sign
+
   # 表单提交
   $('.register_form').submit (e)->
     e.preventDefault()
@@ -97,10 +102,9 @@ $ ->
           password: $("#_form input[name=password]").val()
           email: $("#_form input[name=email]").val()
         success: (data) ->
-          alert "success"
+          alert "注册成功，跳转到首页。"
           window.location.replace('/')
         error:(err)->
           setTimeout ->
             alert '网络出错，请稍候重试。', 3000
   
-
