@@ -31,6 +31,7 @@ public class Book extends Model {
 	public int stock;
 	public String imgPath;
 
+	// 一书多评论
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Comment> comments = new ArrayList<Comment>();
 

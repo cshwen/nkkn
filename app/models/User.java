@@ -29,8 +29,17 @@ public class User extends Model {
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
 	public Date regtime;
 
+	// 一人多评论
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Comment> comments = new ArrayList<Comment>();
+
+	// 一购物车多商品
+	@OneToMany(cascade = CascadeType.ALL)
+	public List<CartItem> cart = new ArrayList<CartItem>();
+
+	// 一人多历史订单
+	@OneToMany(cascade = CascadeType.ALL)
+	public List<Orders> orders = new ArrayList<Orders>();
 
 	public User(String username, String password, String email) {
 		this.username = username;
@@ -52,8 +61,8 @@ public class User extends Model {
 		user.save();
 		return user;
 	}
-	
-	public static User getUser(String username){
+
+	public static User getUser(String username) {
 		return find.where().eq("username", username).findUnique();
 	}
 

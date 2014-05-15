@@ -7,14 +7,14 @@ GET    /                            controllers.Application.index()
 
 GET    /login                       controllers.Application.login()
 POST   /login                       controllers.Application.authenticate()
-POST   /register                       controllers.Application.registerUser()
+POST   /register                    controllers.Application.registerUser()
 GET    /logout                      controllers.Application.logout()
-PUT    /login                      controllers.Application.isExistUser(username: String)
+PUT    /login                       controllers.Application.isExistUser(username: String)
 
-GET	/books/:bookid		controllers.Books.view(bookid: Long)
+GET    /books/:bookid               controllers.Books.view(bookid: Long)
 
 # Javascript routing
-GET     /assets/javascripts/routes          controllers.Application.javascriptRoutes()
+GET    /assets/javascripts/routes   controllers.Application.javascriptRoutes()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET    /assets/*file                controllers.Assets.at(path="/public", file)
