@@ -1,0 +1,17 @@
+@(user: User, book: Book)
+
+@usermanage = {
+	@if(user == null) {
+		<li><a href="@routes.Application.login">登陆/注册</a></li>
+	} else {
+		<li><a href="#">@user.username </a></li>
+		<li class="divider-vertical"></li>
+		<li><a href="@routes.Application.logout">购物车</a></li>
+	}
+}
+
+@main(" - nkkn 网上书城")(usermanage){
+	@book.name
+	@book.price
+	@book.ISBN
+}

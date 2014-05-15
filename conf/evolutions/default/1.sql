@@ -15,6 +15,7 @@ create table book (
   summary                   varchar(255),
   score                     double,
   stock                     integer,
+  img_path                  varchar(255),
   constraint pk_book primary key (id))
 ;
 

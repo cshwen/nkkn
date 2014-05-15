@@ -29,14 +29,23 @@ public class Book extends Model {
 	public String summary;
 	public double score;
 	public int stock;
+	public String imgPath;
 
 	@OneToMany(cascade = CascadeType.ALL)
-    public List<Comment> comments = new ArrayList<Comment>();
-	
+	public List<Comment> comments = new ArrayList<Comment>();
+
 	public static Finder<Long, Book> find = new Finder<Long, Book>(Long.class,
 			Book.class);
 
-	public static List<Book> findAll(){
+	public static List<Book> findAll() {
 		return find.all();
+	}
+
+	public static List<Book> findPageBooks(int pagesize, int page) {
+		return find.findPagingList(pagesize).getPage(page).getList();
+	}
+
+	public static Book read(long bookid) {
+		return find.ref(bookid);
 	}
 }
