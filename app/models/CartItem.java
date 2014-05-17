@@ -14,4 +14,13 @@ public class CartItem extends Model {
 	public Book book;
 	public int num;
 	public double price;
+
+	public CartItem(Book book) {
+		this.book = book;
+		this.price = book.price;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 }

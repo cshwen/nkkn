@@ -1,4 +1,4 @@
-@(title: String)(usermanage: Html)(content: Html)
+@(title: String)(usermanage: Html)(javascript: Html)(content: Html)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,7 +78,7 @@
 	<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-play-1.7.1.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("javascripts/underscore-min.js")"></script>
 	<script type="text/javascript" src="@routes.Assets.at("javascripts/backbone-min.js")"></script>
-	<script type="text/javascript" src="@routes.Assets.at("javascripts/main.js")"></script>
+	@javascript
 	<script type="text/javascript" src="@routes.Application.javascriptRoutes"></script>
 	<script src="@routes.Assets.at("javascripts/bootstrap/js/bootstrap.min.js")"></script>
 	<script src="@routes.Assets.at("javascripts/holder.js")"></script>

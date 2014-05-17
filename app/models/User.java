@@ -80,4 +80,21 @@ public class User extends Model {
 		user.update();
 		return true;
 	}
+
+	public static void addBook(User user, long bookid) { // 添加到购物车
+		CartItem ci = new CartItem(Book.findBook_id(bookid));
+		ci.setNum(1);
+		user.cart.add(ci);
+		user.save();
+	}
+
+	public static void deleteBook(User user, long bookid) { // 删除购物车某书
+		user.cart.remove(new CartItem(Book.findBook_id(bookid)));
+		user.save();
+	}
+
+	public static void clearBook(User user) { // 清空购物车
+		user.cart.clear();
+		user.save();
+	}
 }

@@ -45,8 +45,8 @@ $ ->
   # 上下文密码校验
   validateRepeatPwd = () ->
     error = []
-    pwd=$(".register_form #password")
-    re_pwd=$(".register_form #password_repeat")
+    pwd=$("#register_form #password")
+    re_pwd=$("#register_form #password_repeat")
     if $(pwd).val() isnt $(re_pwd).val()
       addErrorStyle(re_pwd)
       error.push($(re_pwd).attr("id"))
@@ -75,7 +75,7 @@ $ ->
 
   # 是否存在用户
   isExistUser = () ->
-    @username=$("#_form input[name=username]").val()
+    @username=$("#register_form input[name=username]").val()
     r=jsRoutes.controllers.Application.isExistUser(@username)
     sign=false
     $.ajax
@@ -83,24 +83,24 @@ $ ->
       url: r.url
       async: false
       success:(data) ->
-        $("#_form input[name=username]").prev('label').find('.text-error').html(data)
+        $("#register_form input[name=username]").prev('label').find('.text-error').html(data)
         sign = true
       error:(err)->
-        $("#_form input[name=username]").prev('label').find('.text-error').html(err.responseText)
+        $("#register_form input[name=username]").prev('label').find('.text-error').html(err.responseText)
         sign = false
     return sign
 
   # 表单提交
-  $('.register_form').submit (e)->
+  $('#register_form').submit (e)->
     e.preventDefault()
     if validateForm()==true and isExistUser()==true
       $.ajax
         type:'POST'
-        url:$('#_form').attr('action')
+        url:$('#register_form').attr('action')
         data:
-          username: $("#_form input[name=username]").val()
-          password: $("#_form input[name=password]").val()
-          email: $("#_form input[name=email]").val()
+          username: $("#register_form input[name=username]").val()
+          password: $("#register_form input[name=password]").val()
+          email: $("#register_form input[name=email]").val()
         success: (data) ->
           alert "注册成功，跳转到首页。"
           window.location.replace('/')

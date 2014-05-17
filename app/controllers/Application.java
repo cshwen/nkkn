@@ -9,17 +9,15 @@ import play.mvc.*;
 import views.html.*;
 
 public class Application extends Controller {
-	// @Security.Authenticated(Secured.class)
 	public static Result index() {
 		// System.out.println(request().username());
 		// System.out.println(User.getUser(request().username()));
 		return ok(index.render("Your new application is ready.",
-				User.getUser(session().get("username")), Book.findAll()
-		));
+				User.getUser(session().get("username")), Book.findAll()));
 	}
 
 	public static Result login() {
-		return ok(views.html.login.render(Form.form(Login.class),
+		return ok(login.render(Form.form(Login.class),
 				Form.form(Register.class)));
 	}
 
@@ -28,7 +26,7 @@ public class Application extends Controller {
 		Form<Register> registerForm = Form.form(Register.class)
 				.bindFromRequest();
 		if (loginForm.hasErrors()) {
-			return badRequest(views.html.login.render(loginForm, registerForm));
+			return badRequest(login.render(loginForm, registerForm));
 		} else {
 			session().clear();
 			session("username", loginForm.get().username);
@@ -102,6 +100,7 @@ public class Application extends Controller {
 		response().setContentType("text/javascript");
 		return ok(Routes.javascriptRouter("jsRoutes",
 				controllers.routes.javascript.Application.registerUser(),
-				controllers.routes.javascript.Application.isExistUser()));
+				controllers.routes.javascript.Application.isExistUser(),
+				controllers.routes.javascript.Carts.addCart()));
 	}
 }

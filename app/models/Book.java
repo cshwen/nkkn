@@ -46,7 +46,7 @@ public class Book extends Model {
 		return find.findPagingList(pagesize).getPage(page).getList();
 	}
 
-	public static Book read(long bookid) {
+	public static Book findBook_id(long bookid) {
 		return find.ref(bookid);
 	}
 }

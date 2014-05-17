@@ -19,6 +19,6 @@ public class Books extends Controller {
 			return redirect(routes.Application.index());
 		}
 		return ok(book.render(User.getUser(session().get("username")),
-				Book.read(bookid)));
+				Book.findBook_id(bookid)));
 	}
 }
