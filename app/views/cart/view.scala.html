@@ -1,0 +1,24 @@
+@(lists: List[CartItem])
+
+	<h4>购物车 <a href="#" class="btn pull-right">一键下单</a></h4>
+	<div class="dropdown">
+	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		<i class="icon-shopping-cart" >&nbsp;</i>
+		 @{
+		 	var sum=0.00;
+		 	var num=0;
+		 	for(p <- lists) {
+		 		num+=p.num;
+		 		sum+=p.price;
+			} 
+			num + " item - $" + sum
+		 }
+		<b class="caret"></b></a>
+	</a>
+	<div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
+		@lists.map { list =>
+		<p>@list.book.name  x @list.num <span class="pull-right">$ @list.price</span></p>
+		}
+		<a href="#" class="btn btn-primary">查看购物车</a>
+	</div>
+	</div>

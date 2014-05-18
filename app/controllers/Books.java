@@ -18,7 +18,7 @@ public class Books extends Controller {
 		if (bookid <= 0 || bookid > User.find.all().size()) {
 			return redirect(routes.Application.index());
 		}
-		return ok(book.render(User.getUser(session().get("username")),
+		return ok(views.html.book.index.render(User.getUser(session().get("username")),
 				Book.findBook_id(bookid)));
 	}
 }

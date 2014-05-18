@@ -81,6 +81,10 @@ public class User extends Model {
 		return true;
 	}
 
+	public static List<CartItem> getCart(User user){ // 获取购物车列表信息
+		return user.cart;
+	}
+	
 	public static void addBook(User user, long bookid) { // 添加到购物车
 		CartItem ci = new CartItem(Book.findBook_id(bookid));
 		ci.setNum(1);

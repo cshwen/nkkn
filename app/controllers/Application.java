@@ -101,6 +101,7 @@ public class Application extends Controller {
 		return ok(Routes.javascriptRouter("jsRoutes",
 				controllers.routes.javascript.Application.registerUser(),
 				controllers.routes.javascript.Application.isExistUser(),
-				controllers.routes.javascript.Carts.addCart()));
+				controllers.routes.javascript.Carts.addCart(),
+				controllers.routes.javascript.Carts.view()));
 	}
 }

@@ -14,6 +14,7 @@ PUT      /login                       controllers.Application.isExistUser(userna
 GET      /books/:bookid               controllers.Books.view(bookid: Long)
 
 GET      /cart                        controllers.Carts.index()
+GET      /cart/view                   controllers.Carts.view()
 POST     /cart/:bookid                controllers.Carts.addCart(bookid: Long)
 DELETE   /cart/:bookid                controllers.Carts.delCart(bookid: Long)
 DELETE   /cart                        controllers.Carts.clearCart()

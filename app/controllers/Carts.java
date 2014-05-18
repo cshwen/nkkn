@@ -1,6 +1,7 @@
 package controllers;
 
 import models.User;
+import play.mvc.Content;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -12,6 +13,11 @@ public class Carts extends Controller {
 		return TODO;
 		// return ok(index.render("Your new application is ready.",
 		// User.getUser(session().get("username"))));
+	}
+
+	public static Result view() {
+		return ok(views.html.cart.view.render(User.getCart(User
+				.getUser(session().get("username")))));
 	}
 
 	public static Result addCart(Long bookid) {

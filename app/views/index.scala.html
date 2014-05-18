@@ -16,24 +16,11 @@
 <div class="container">
 		<div class="row">
 			<div class="span3">
-				<div class="well">
-
-					<div class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-							<i class="icon-shopping-cart"></i>
-							3 item - $999.99
-							<b class="caret"></b></a>
-						</a>
-						<div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
-							<p>Item x 1 <span class="pull-right">$333.33</span></p>
-							<p>Item x 1 <span class="pull-right">$333.33</span></p>
-							<p>Item x 1 <span class="pull-right">$333.33</span></p>
-							<a href="#" class="btn btn-primary">Checkout</a>
-						</div>
+				@if(user != null) {
+					<div id="usercart" class="well">
+					@views.html.cart.view(user.cart)
 					</div>
-
-				</div>
-
+				}
 				<div class="well">
 					<ul class="nav nav-list">
 						<li class="nav-header">Sidebar</li>
@@ -94,7 +81,7 @@
 					<a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
 				</div>
 				<ul class="thumbnails">
-					@views.html.books(books)
+					@views.html.book.books(books)
 				</ul>
 
 				<div class="pagination">
