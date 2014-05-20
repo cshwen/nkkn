@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import utils.Isbn;
 
 @Entity
 public class Book extends Model {
@@ -49,4 +50,12 @@ public class Book extends Model {
 	public static Book findBook_id(long bookid) {
 		return find.ref(bookid);
 	}
+	
+	public static List<Book> search(String str){
+		if(Isbn.checkout13(str)||Isbn.checkout10(str)){
+			return find.where().eq("ISBN", str).findList();
+		}
+		return find.where().ilike("name", "%"+str+"%").ilike("author",  "%"+str+"%").findPagingList(21).getPage(0).getList();
+	}
+	
 }

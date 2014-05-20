@@ -1,11 +1,11 @@
 package controllers;
 
 import models.Book;
-
 import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
+import static play.data.Form.*;
 
 public class Books extends Controller {
 	public static Result index() {
@@ -20,5 +20,10 @@ public class Books extends Controller {
 		}
 		return ok(views.html.book.index.render(User.getUser(session().get("username")),
 				Book.findBook_id(bookid)));
+	}
+	
+	public static Result search(){
+		String keyword=form().bindFromRequest().get("wd");
+		return ok(views.html.book.search.render(Book.search(keyword)));
 	}
 }

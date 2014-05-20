@@ -43,12 +43,12 @@
 							</ul>
 						</li>
 					</ul>
-					<form class="navbar-form form-search pull-left">
+					@helper.form(action=routes.Books.search, 'class -> "navbar-form form-search pull-left") {
 						<div class="input-append">
-						  <input class="search-query span3" id="appendedInputButton" type="text" placeholder="书名、作者、ISBN" class="input-xlarge search-query">
+						  <input class="search-query span3" name="wd" type="text" placeholder="书名、作者、ISBN" class="input-xlarge search-query">
 						  <button class="btn" type="submit"><i class="icon-search"></i></button>
 						</div>
-					</form>
+					}
 					<ul class="nav pull-right">
 					@usermanage
                     </ul>

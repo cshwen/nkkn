@@ -1,4 +1,4 @@
-$(".caption a").click (e) ->
+$("#addBook").click (e) ->
   e.preventDefault()
   @id=$(e.target).attr("data-book-id")
   r=jsRoutes.controllers.Carts.addCart(@id)

@@ -6,7 +6,7 @@
 		<h4>@book.name</h4>
 		<p><strike>Euro ???</strike>&nbsp;CNY @book.price</p>
 		<a class="btn btn-primary" href="@routes.Books.view(book.id)">查看</a>
-		<a class="btn btn-success" href="#" data-toggle="modal" data-target="#bookModal" data-book-id="@book.id"><i class="icon-shopping-cart" ></i>&nbsp;购买</a>
+		<a id="addBook" class="btn btn-success" href="#" data-toggle="modal" data-target="#bookModal" data-book-id="@book.id"><i class="icon-shopping-cart" ></i>&nbsp;购买</a>
 		</div>
 	</div>
 </li>

@@ -12,6 +12,7 @@ GET      /logout                      controllers.Application.logout()
 PUT      /login                       controllers.Application.isExistUser(username: String)
 
 GET      /books/:bookid               controllers.Books.view(bookid: Long)
+GET      /search/                   controllers.Books.search()
 
 GET      /cart                        controllers.Carts.index()
 GET      /cart/view                   controllers.Carts.view()
