@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
@@ -31,6 +32,10 @@ public class Book extends Model {
 	public double score;
 	public int stock;
 	public String imgPath;
+	public int sales;
+
+	@OneToOne
+	public Category category;
 
 	// 一书多评论
 	@OneToMany(cascade = CascadeType.ALL)
@@ -50,12 +55,16 @@ public class Book extends Model {
 	public static Book findBook_id(long bookid) {
 		return find.ref(bookid);
 	}
-	
-	public static List<Book> search(String str){
-		if(Isbn.checkout13(str)||Isbn.checkout10(str)){
+
+	public static List<Book> search(String str) {
+		if (Isbn.checkout13(str) || Isbn.checkout10(str)) {
 			return find.where().eq("ISBN", str).findList();
 		}
-		return find.where().ilike("name", "%"+str+"%").ilike("author",  "%"+str+"%").findPagingList(21).getPage(0).getList();
+		return find
+				.where()
+				.or(com.avaje.ebean.Expr.like("name", "%" + str + "%"),
+						com.avaje.ebean.Expr.like("author", "%" + str + "%"))
+				.findPagingList(21).getPage(0).getList();
 	}
-	
+
 }
