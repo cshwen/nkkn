@@ -32,7 +32,7 @@ create table cart_item (
 
 create table category (
   num                       char(2) not null,
-  category_name             char(32),
+  name                      char(32),
   constraint pk_category primary key (num))
 ;
 

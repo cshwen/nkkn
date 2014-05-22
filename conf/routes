@@ -5,6 +5,7 @@
 # Home page
 GET      /                  controllers.Application.index()
 GET      /page/:page                  controllers.Application.page(page: Integer)
+GET      /tab/:sign/:page                  controllers.Application.tab(sign:String, page: Integer)
 
 GET      /login                       controllers.Application.login()
 POST     /login                       controllers.Application.authenticate()

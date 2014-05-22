@@ -1,0 +1,9 @@
+@(categorys: List[Category], sign: String)
+<ul class="nav nav-list">
+	<li class="nav-header"><i class="icon-tasks">&nbsp;&nbsp;导&nbsp;航</i></li>
+@categorys.map {  category =>
+	<li @if(category.num ==sign ) {class="active"}>
+		<a href="@routes.Application.tab(category.num, 0)">@category.name</a>
+	</li> 
+}
+</ul>

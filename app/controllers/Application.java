@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Book;
+import models.Category;
 import models.User;
 import play.*;
 import play.data.Form;
@@ -9,19 +10,25 @@ import play.mvc.*;
 import views.html.*;
 
 public class Application extends Controller {
-	public static Result index() {
-//		return redirect(routes.Application.page(0));
+	public static Result index() { // 首页待定
+		// return redirect(routes.Application.page(0));
 		return ok(index.render("Your new application is ready.",
-				User.getUser(session().get("username")),
+				User.getUser(session().get("username")), Category.findAll(),
 				Book.findPageBooks(21, 0)));
 	}
 
-	public static Result page(int page){
-		return ok(index.render("Your new application is ready.",
-				User.getUser(session().get("username")),
+	public static Result page(int page) { // 分页待定
+		return ok(index.render("page:	" + page,
+				User.getUser(session().get("username")), Category.findAll(),
 				Book.findPageBooks(21, page)));
 	}
-	
+
+	public static Result tab(String sign, int page) { // 导航
+		return ok(show.render(Category.getTitle(sign) + "\t--" + page,
+				User.getUser(session().get("username")), Category.findAll(),
+				sign, page, Category.getPages(sign) , Category.showBook(sign, 21, page)));
+	}
+
 	public static Result login() {
 		return ok(login.render(Form.form(Login.class),
 				Form.form(Register.class)));
