@@ -10,12 +10,18 @@ import views.html.*;
 
 public class Application extends Controller {
 	public static Result index() {
-		// System.out.println(request().username());
-		// System.out.println(User.getUser(request().username()));
+//		return redirect(routes.Application.page(0));
 		return ok(index.render("Your new application is ready.",
-				User.getUser(session().get("username")), Book.findAll()));
+				User.getUser(session().get("username")),
+				Book.findPageBooks(21, 0)));
 	}
 
+	public static Result page(int page){
+		return ok(index.render("Your new application is ready.",
+				User.getUser(session().get("username")),
+				Book.findPageBooks(21, page)));
+	}
+	
 	public static Result login() {
 		return ok(login.render(Form.form(Login.class),
 				Form.form(Register.class)));

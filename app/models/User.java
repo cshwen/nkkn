@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -19,8 +20,10 @@ public class User extends Model {
 	@Id
 	public Long id;
 	@Required
+	@Column(columnDefinition="char(32)")
 	public String username;
 	@Required
+	@Column(columnDefinition="char(32)")
 	public String password;
 	@Email
 	public String email;

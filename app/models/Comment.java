@@ -3,7 +3,6 @@ package models;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import play.data.format.Formats;
@@ -21,7 +20,7 @@ public class Comment extends Model {
 
 	@ManyToOne
 	public User user;
-	
+
 	@ManyToOne
 	public Book book;
 }

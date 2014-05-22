@@ -17,7 +17,7 @@ public class CartItem extends Model {
 
 	public CartItem(Book book) {
 		this.book = book;
-		this.price = book.price;
+		this.price = Double.valueOf(book.price.substring(3)); 
 	}
 
 	public void setNum(int num) {

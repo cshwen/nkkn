@@ -15,15 +15,16 @@ public class Books extends Controller {
 	}
 
 	public static Result view(Long bookid) {
-		if (bookid <= 0 || bookid > User.find.all().size()) {
+		if (bookid <= 0 || bookid > Book.find.all().size()) {
 			return redirect(routes.Application.index());
 		}
-		return ok(views.html.book.index.render(User.getUser(session().get("username")),
+		return ok(views.html.book.index.render(
+				User.getUser(session().get("username")),
 				Book.findBook_id(bookid)));
 	}
-	
-	public static Result search(){
-		String keyword=form().bindFromRequest().get("wd");
+
+	public static Result search() {
+		String keyword = form().bindFromRequest().get("wd");
 		return ok(views.html.book.search.render(Book.search(keyword)));
 	}
 }

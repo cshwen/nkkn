@@ -4,25 +4,25 @@
 # --- !Ups
 
 create table book (
-  id                        bigint not null,
-  name                      varchar(255),
+  id                        bigint auto_increment not null,
+  title                     varchar(255),
   author                    varchar(255),
   publisher                 varchar(255),
-  isbn                      varchar(255),
-  price                     double,
-  pubtime                   timestamp,
-  pages                     integer,
-  summary                   varchar(255),
+  isbn                      char(13),
+  price                     char(32),
+  pubtime                   char(32),
+  pages                     varchar(255),
+  summary                   TEXT,
   score                     double,
-  stock                     integer,
+  stock                     float,
   img_path                  varchar(255),
   sales                     integer,
-  category_id               bigint,
+  category_num              char(2),
   constraint pk_book primary key (id))
 ;
 
 create table cart_item (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   user_id                   bigint not null,
   book_id                   bigint,
   num                       integer,
@@ -31,23 +31,22 @@ create table cart_item (
 ;
 
 create table category (
-  id                        bigint not null,
-  category_num              varchar(255),
-  category_name             varchar(255),
-  constraint pk_category primary key (id))
+  num                       char(2) not null,
+  category_name             char(32),
+  constraint pk_category primary key (num))
 ;
 
 create table comment (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   content                   varchar(255),
-  time                      timestamp,
+  time                      datetime,
   user_id                   bigint,
   book_id                   bigint,
   constraint pk_comment primary key (id))
 ;
 
 create table order_item (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   orders_id                 bigint not null,
   book_id                   bigint,
   num                       integer,
@@ -56,41 +55,27 @@ create table order_item (
 ;
 
 create table orders (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   user_id                   bigint not null,
   sum                       double,
-  time                      timestamp,
-  state                     varchar(255),
+  time                      datetime,
+  state                     char(16),
   constraint pk_orders primary key (id))
 ;
 
 create table user (
-  id                        bigint not null,
-  username                  varchar(255),
-  password                  varchar(255),
+  id                        bigint auto_increment not null,
+  username                  char(32),
+  password                  char(32),
   email                     varchar(255),
   role                      integer,
   phone                     varchar(255),
-  regtime                   timestamp,
+  regtime                   datetime,
   constraint pk_user primary key (id))
 ;
 
-create sequence book_seq;
-
-create sequence cart_item_seq;
-
-create sequence category_seq;
-
-create sequence comment_seq;
-
-create sequence order_item_seq;
-
-create sequence orders_seq;
-
-create sequence user_seq;
-
-alter table book add constraint fk_book_category_1 foreign key (category_id) references category (id) on delete restrict on update restrict;
-create index ix_book_category_1 on book (category_id);
+alter table book add constraint fk_book_category_1 foreign key (category_num) references category (num) on delete restrict on update restrict;
+create index ix_book_category_1 on book (category_num);
 alter table cart_item add constraint fk_cart_item_user_2 foreign key (user_id) references user (id) on delete restrict on update restrict;
 create index ix_cart_item_user_2 on cart_item (user_id);
 alter table cart_item add constraint fk_cart_item_book_3 foreign key (book_id) references book (id) on delete restrict on update restrict;
@@ -110,35 +95,21 @@ create index ix_orders_user_8 on orders (user_id);
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists book;
+drop table book;
 
-drop table if exists cart_item;
+drop table cart_item;
 
-drop table if exists category;
+drop table category;
 
-drop table if exists comment;
+drop table comment;
 
-drop table if exists order_item;
+drop table order_item;
 
-drop table if exists orders;
+drop table orders;
 
-drop table if exists user;
+drop table user;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists book_seq;
-
-drop sequence if exists cart_item_seq;
-
-drop sequence if exists category_seq;
-
-drop sequence if exists comment_seq;
-
-drop sequence if exists order_item_seq;
-
-drop sequence if exists orders_seq;
-
-drop sequence if exists user_seq;
+SET FOREIGN_KEY_CHECKS=1;
 

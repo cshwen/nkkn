@@ -1,0 +1,62 @@
+
+# Users
+- &csw !!models.User
+    username:      csw
+    password:   csw
+    email:    icshwen@gmail.com
+    role:    1
+    phone:    12345678901
+    regtime:    2014-05-03
+    
+- &lowstz !!models.User
+    username:      lowstz
+    password:   lowstz
+    email:    lowstz@gmail.com
+    role:    1
+    phone:    656565
+    regtime:    2014-05-07
+    
+- &test !!models.User
+    username:    test
+    password:   test
+    email:    test@qq.com
+    role:    3
+    phone:    123456
+    regtime:    2014-07-08
+
+# Books
+- !!models.Book
+    name: 算法导论
+    author:    ThomasHCormenCharlesELeisersonRonaldLRivestCliffordStein
+    publisher:    机械工业出版社
+    ISBN:    9787111187776
+    price:    85.0
+    pubtime:    2006-09-01
+    pages:    754
+    score:    9.3
+    summary:    这本书深入浅出
+    stock: 111
+    
+- !!models.Book
+    name: 计算机程序设计艺术（第1卷）
+    author:   <美>唐纳德·E. 克努特
+    publisher:    国防工业出版社
+    ISBN:    9787118027990
+    price:    98
+    pubtime:    2002-09-01
+    pages:    626
+    score:    9.4
+    summary:    7卷本《计算机程序设计艺术》的第1卷以基本的程序设计概念和技术开始
+    stock: 123
+    
+- !!models.Book
+    name: 计算机程序的构造和解释
+    author:    Harold Abelson / Gerald Jay Sussman / Julie Sussman 
+    publisher:     机械工业出版社
+    ISBN:    9787111135104
+    price:    45
+    pubtime:    2004-02-01
+    pages:    473
+    score:    9.5
+    summary:    《计算机程序的构造和解释(原书第2版)》1984年出版，成型于美国麻省理工学院(MIT)多年使用的一本教材，1996年修订为第2版。
+    stock: 123
