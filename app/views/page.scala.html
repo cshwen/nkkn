@@ -6,6 +6,15 @@
 @pages.map { pg =>
 <li @if(page ==pg ) {class="disabled"}><a href="@routes.Application.tab(tab_sign, pg)">@{pg+1}</a></li>
 }
-		<li><a href="@routes.Application.tab(tab_sign, page+1)"><span>下一页</span></a></li>
+		<li @{var gins=false;var shuchu="";
+			for(pg<-pages){
+			if(page+1==pg) 
+			gins=true;
+			}
+			if(gins==false)
+				shuchu="class=disabled";
+			shuchu
+			 }>
+		<a href="@routes.Application.tab(tab_sign, page+1)"><span>下一页</span></a></li>
 	</ul>
 </div>

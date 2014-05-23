@@ -31,7 +31,13 @@ public class Category extends Model {
 
 	public static List<Book> showBook(String sign, int pagesize, int page) { // 显示导航
 		Category c = find.where().eq("num", sign).findUnique();
-		return c.books.subList(pagesize * page, pagesize * (page + 1));
+		int BookSum = find.where().eq("num", sign).findUnique().books.size();
+		if (pagesize > BookSum)
+			pagesize = BookSum;
+		int endBook = pagesize * (page + 1);
+		if (BookSum < endBook)
+			endBook = BookSum;
+		return c.books.subList(pagesize * page, endBook);
 	}
 
 	public static String getTitle(String sign) { // 导航标题
@@ -47,7 +53,7 @@ public class Category extends Model {
 		return num;
 	}
 
-	public static List<Integer> getPages(int page_now, String sign) {
+	public static List<Integer> getPages(int page_now, String sign) { // 页码list
 		int page_num = getPageNum(sign);
 		int start = page_now - 2;
 		int end = page_now + 2;

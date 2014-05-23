@@ -24,9 +24,13 @@ public class Application extends Controller {
 	}
 
 	public static Result tab(String sign, int page_now) { // 导航
+		int pagesum = Category.getPageNum(sign);
+		if (page_now > pagesum - 1)
+			page_now = pagesum - 1;
 		return ok(show.render(Category.getTitle(sign) + "\t--" + page_now,
 				User.getUser(session().get("username")), Category.findAll(),
-				sign, page_now, Category.getPages(page_now,sign), Category.showBook(sign, 21, page_now)));
+				sign, page_now, Category.getPages(page_now, sign),
+				Category.showBook(sign, 21, page_now)));
 	}
 
 	public static Result login() {
