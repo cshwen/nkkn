@@ -17,10 +17,13 @@ public class CartItem extends Model {
 
 	public CartItem(Book book) {
 		this.book = book;
-		this.price = Double.valueOf(book.price.substring(3)); 
+		this.price = Double.valueOf(book.price.substring(3));
 	}
 
 	public void setNum(int num) {
 		this.num = num;
 	}
+
+	public static Finder<Long, CartItem> find = new Finder<Long, CartItem>(
+			Long.class, CartItem.class);
 }

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.avaje.ebean.Ebean;
+
 import play.data.format.Formats;
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
@@ -105,9 +107,20 @@ public class User extends Model {
 		user.save();
 	}
 
-	public static void deleteBook(User user, long bookid) { // 删除购物车某书
-		user.cart.remove(new CartItem(Book.findBook_id(bookid)));
-		user.save();
+	public static void alterBook(User user, long cartId, int num) { // 修改购买数量
+		for (CartItem it : user.cart) {
+			if (it.id == cartId) {
+				it.setNum(num);
+				it.update();
+				break;
+			}
+		}
+	}
+
+	public static void deleteBook(User user, long cartId) { // 删除购物车某书
+		CartItem.find.ref(cartId).delete();
+		// Ebean.createSqlUpdate("delete from cart_item where id = :id ")
+		// .setParameter("id", cartId).execute();
 	}
 
 	public static void clearBook(User user) { // 清空购物车

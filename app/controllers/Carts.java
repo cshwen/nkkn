@@ -26,9 +26,14 @@ public class Carts extends Controller {
 		return ok("已添加至购物车");
 	}
 
-	public static Result delCart(Long bookid) {
-		User.deleteBook(User.getUser(session().get("username")), bookid);
-		return ok();
+	public static Result alterCart(Long cartId, int num) {
+		User.alterBook(User.getUser(session().get("username")), cartId, num);
+		return ok("已修改购物车");
+	}
+
+	public static Result deleteCart(Long cartId) {
+		User.deleteBook(User.getUser(session().get("username")), cartId);
+		return ok("已从购物车删除");
 	}
 
 	public static Result clearCart() {
@@ -38,7 +43,7 @@ public class Carts extends Controller {
 
 	public static Result orderView() {
 		User user = User.getUser(session().get("username"));
-		return ok(views.html.cart.order.render(user, Category.findAll(),
+		return ok(views.html.cart.index.render(user, Category.findAll(),
 				User.getCart(user)));
 	}
 }
