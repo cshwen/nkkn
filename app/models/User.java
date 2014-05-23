@@ -20,10 +20,10 @@ public class User extends Model {
 	@Id
 	public Long id;
 	@Required
-	@Column(columnDefinition="char(32)")
+	@Column(columnDefinition = "char(32)")
 	public String username;
 	@Required
-	@Column(columnDefinition="char(32)")
+	@Column(columnDefinition = "char(32)")
 	public String password;
 	@Email
 	public String email;
@@ -84,14 +84,24 @@ public class User extends Model {
 		return true;
 	}
 
-	public static List<CartItem> getCart(User user){ // 获取购物车列表信息
+	public static List<CartItem> getCart(User user) { // 获取购物车列表信息
 		return user.cart;
 	}
-	
+
 	public static void addBook(User user, long bookid) { // 添加到购物车
-		CartItem ci = new CartItem(Book.findBook_id(bookid));
-		ci.setNum(1);
-		user.cart.add(ci);
+		boolean nullsign = true;
+		for (CartItem it : user.cart) {
+			if (it.book.id == bookid) {
+				it.setNum(it.num + 1);
+				nullsign = false;
+				break;
+			}
+		}
+		if (nullsign == true) {
+			CartItem ci = new CartItem(Book.findBook_id(bookid));
+			ci.setNum(1);
+			user.cart.add(ci);
+		}
 		user.save();
 	}
 
@@ -104,4 +114,5 @@ public class User extends Model {
 		user.cart.clear();
 		user.save();
 	}
+
 }

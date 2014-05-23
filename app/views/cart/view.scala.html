@@ -1,6 +1,6 @@
 @(lists: List[CartItem])
 
-	<h4>购物车 <a href="#" class="btn pull-right">一键下单</a></h4>
+	<h4>购物车 <a href="@routes.Carts.orderView" class="btn pull-right">一键下单</a></h4>
 	<div class="dropdown">
 	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 		<i class="icon-shopping-cart" >&nbsp;</i>
@@ -9,7 +9,7 @@
 		 	var num=0;
 		 	for(p <- lists) {
 		 		num+=p.num;
-		 		sum+=p.price;
+		 		sum+=p.price*p.num;
 			} 
 			num + " item - $" + sum
 		 }

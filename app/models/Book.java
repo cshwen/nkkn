@@ -24,12 +24,12 @@ public class Book extends Model {
 	public String title;
 	public String author;
 	public String publisher;
-	@Column(columnDefinition="char(13)")
+	@Column(columnDefinition = "char(13)")
 	public String ISBN;
-	@Column(columnDefinition="char(32)")
+	@Column(columnDefinition = "char(32)")
 	public String price;
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
-	@Column(columnDefinition="char(32)")
+	@Column(columnDefinition = "char(32)")
 	public Date pubtime;
 	public String pages;
 	@Column(columnDefinition = "TEXT")

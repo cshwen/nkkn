@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Category;
 import models.User;
 import play.mvc.Content;
 import play.mvc.Controller;
@@ -33,5 +34,11 @@ public class Carts extends Controller {
 	public static Result clearCart() {
 		User.clearBook(User.getUser(session().get("username")));
 		return ok();
+	}
+
+	public static Result orderView() {
+		User user = User.getUser(session().get("username"));
+		return ok(views.html.cart.order.render(user, Category.findAll(),
+				User.getCart(user)));
 	}
 }
