@@ -23,10 +23,10 @@ public class Application extends Controller {
 				Book.findPageBooks(21, page)));
 	}
 
-	public static Result tab(String sign, int page) { // 导航
-		return ok(show.render(Category.getTitle(sign) + "\t--" + page,
+	public static Result tab(String sign, int page_now) { // 导航
+		return ok(show.render(Category.getTitle(sign) + "\t--" + page_now,
 				User.getUser(session().get("username")), Category.findAll(),
-				sign, page, Category.getPages(sign) , Category.showBook(sign, 21, page)));
+				sign, page_now, Category.getPages(page_now,sign), Category.showBook(sign, 21, page_now)));
 	}
 
 	public static Result login() {

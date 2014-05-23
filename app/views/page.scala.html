@@ -1,14 +1,11 @@
-@(page:Integer, pages:Integer)
+@(page:Integer, pages:List[Integer], tab_sign:String)
 
-<p>@page，@pages </p>
 <div class="pagination pagination-large pagination-centered">
 	<ul>
-		<li class"disabled"><span>上一页</span></li>
-		<li class"disabled"><span>1</span></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-		<li><a href="#">下一页</a></li>
+		<li @if(page-1<0 ) {class="disabled"}><a href="@routes.Application.tab(tab_sign, page-1)"><span>上一页</span></a></li>
+@pages.map { pg =>
+<li @if(page ==pg ) {class="disabled"}><a href="@routes.Application.tab(tab_sign, pg)">@{pg+1}</a></li>
+}
+		<li><a href="@routes.Application.tab(tab_sign, page+1)"><span>下一页</span></a></li>
 	</ul>
 </div>

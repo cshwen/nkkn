@@ -1,4 +1,4 @@
-@(message: String, user: User, categorys:List[Category], tab_sign:String, page_now:Integer, pages:Integer,  books: List[Book])
+@(message: String, user: User, categorys:List[Category], tab_sign:String, page_now:Integer, pages:List[Integer],  books: List[Book])
 
 @usermanage = {
 	@if(user == null) {
@@ -31,7 +31,7 @@
 					@views.html.book.books(books)
 				</ul>
 				
-				@views.html.page(page_now, pages)
+				@views.html.page(page_now, pages, tab_sign)
 
 			</div>
 		</div>

@@ -29,23 +29,36 @@ public class Category extends Model {
 		return find.all();
 	}
 
-	public static List<Book> showBook(String sign, int pagesize, int page) {
+	public static List<Book> showBook(String sign, int pagesize, int page) { // 显示导航
 		Category c = find.where().eq("num", sign).findUnique();
 		return c.books.subList(pagesize * page, pagesize * (page + 1));
 	}
 
-	public static String getTitle(String sign) {
+	public static String getTitle(String sign) { // 导航标题
 		return find.where().eq("num", sign).findUnique().name;
 	}
 
-	public static int getPages(String sign) {
-		System.out.println("pagenum:"
-				+ find.where().eq("num", sign).findUnique().books.size());
+	public static int getPageNum(String sign) { // 总页数
 		int num = find.where().eq("num", sign).findUnique().books.size();
 		if (num % 21 == 0)
 			num /= 21;
 		else
 			num = num / 21 + 1;
 		return num;
+	}
+
+	public static List<Integer> getPages(int page_now, String sign) {
+		int page_num = getPageNum(sign);
+		int start = page_now - 2;
+		int end = page_now + 2;
+		if (start < 0)
+			start = 0;
+		if (end > page_num - 1)
+			end = page_num - 1;
+		List<Integer> list = new ArrayList<>();
+		for (int i = start; i <= end; i++) {
+			list.add(new Integer(i));
+		}
+		return list;
 	}
 }
