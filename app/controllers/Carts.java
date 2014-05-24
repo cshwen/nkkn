@@ -41,9 +41,14 @@ public class Carts extends Controller {
 		return ok();
 	}
 
-	public static Result orderView() {
+	public static Result orderView() { // 下单购物车
 		User user = User.getUser(session().get("username"));
 		return ok(views.html.cart.index.render(user, Category.findAll(),
 				User.getCart(user)));
+	}
+
+	public static Result refresh() { // 刷新下单
+		return ok(views.html.cart.order.render(User.getCart(User
+				.getUser(session().get("username")))));
 	}
 }

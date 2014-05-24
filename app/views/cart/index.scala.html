@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="span3">
 				@if(user != null) {
-					<div id="usercart" class="well">
+					<div id="cartView" class="well">
 					@views.html.cart.view(user.cart)
 					</div>
 				}
@@ -26,11 +26,8 @@
 				</div>
 			</div>
 
-			<div id="cart" class="span9">
+			<div id="cartConsole" class="span9">
 				@views.html.cart.order(carts)
-				<div class="clearfix"></div>
-				<a href="#" class="btn btn-success pull-right">结&nbsp;算</a>
-				<a href="/" class="btn btn-primary">继续购物</a>
 			</div>
 		</div>
 	</div>

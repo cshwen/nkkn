@@ -22,7 +22,8 @@ GET      /cart/order                  controllers.Carts.orderView()
 POST     /cart/:bookid                controllers.Carts.addCart(bookid: Long)
 POST     /cart/:cartid/:num           controllers.Carts.alterCart(cartid: Long, num: Integer)
 DELETE   /cart/:cartid                controllers.Carts.deleteCart(cartid: Long)
-DELETE   /cart                        controllers.Carts.clearCart()
+DELETE   /cart/clear                  controllers.Carts.clearCart()
+GET      /cart/refresh                controllers.Carts.refresh()
 
 # Javascript routing
 GET      /assets/javascripts/routes   controllers.Application.javascriptRoutes()
