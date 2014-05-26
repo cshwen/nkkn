@@ -18,12 +18,12 @@ GET      /search/                     controllers.Books.search()
 
 GET      /cart                        controllers.Carts.index()
 GET      /cart/view                   controllers.Carts.view()
-GET      /cart/order                  controllers.Carts.orderView()
 POST     /cart/:bookid                controllers.Carts.addCart(bookid: Long)
 POST     /cart/:cartid/:num           controllers.Carts.alterCart(cartid: Long, num: Integer)
 DELETE   /cart/:cartid                controllers.Carts.deleteCart(cartid: Long)
 DELETE   /cart/clear                  controllers.Carts.clearCart()
 GET      /cart/refresh                controllers.Carts.refresh()
+GET      /cart/checkout               controllers.Carts.checkout()
 
 # Javascript routing
 GET      /assets/javascripts/routes   controllers.Application.javascriptRoutes()

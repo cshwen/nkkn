@@ -1,0 +1,213 @@
+@(user: User, categorys:List[Category])
+
+@usermanage = {
+	@if(user == null) {
+		<li><a href="@routes.Application.login">登陆/注册</a></li>
+	} else {
+		<li><a href="#">@user.username </a></li>
+		<li class="divider-vertical"></li>
+		<li><a href="@routes.Application.logout">购物车</a></li>
+	}
+} 
+
+@javascript = { }
+
+@main("-- 已下单")(usermanage)(javascript) {
+<div class="container">
+	<div class="row">
+		<div class="span3">
+			@if(user != null) {
+			<div id="cartView" class="well">
+				@views.html.cart.view(user.cart)</div>
+			}
+			<div class="well">@views.html.tab(categorys, "No")</div>
+		</div>
+
+		<div class="span9">
+				<h2>确认订单</h2>
+				<div class="accordion" id="accordion2">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+								步骤 1: 登录信息
+							</a>
+						</div>
+						<div id="collapseOne" class="accordion-body collapse in">
+							<div class="accordion-inner">
+								<div class="span4">
+									<h4>帐号信息</h4>
+									<form>
+										<label class="radio">
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+											已登录：
+										</label>
+										<label class="radio">
+											<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+											其他帐号
+										</label>
+									</form>
+									<em>通过创建一个帐户，您将能够快速地购买图书，更新订单状态，并跟踪您以前的购物记录。</em>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+								步骤 2: 收货人信息
+							</a>
+						</div>
+						<div id="collapseTwo" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<form>
+									<label> 收货人:</label>
+									<input type="text" class="large-field" value="" name="name">
+
+									<label> 所在地区:</label>
+									<input type="text" class="large-field" value="" name="area">
+									
+									<label>详细地址:</label>
+									<input type="text" class="large-field" value="" name="address">
+
+									<label> 邮编:</label>
+									<input type="text" class="large-field" value="" name="postcode">
+
+									<label> 手机号码:</label>
+									<input type="text" class="large-field" value="" name="mobile">
+
+									<label> 固定号码:</label>
+									<input type="text" class="large-field" value="" name="fixedTelephone">
+
+									<label>邮箱:</label>
+									<input type="text" class="large-field" value="" name="email">
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+								步骤 3: 发票详情
+							</a>
+						</div>
+						<div id="collapseThree" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<p>待定</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+								步骤 4: 配送方式
+							</a>
+						</div>
+						<div id="collapseFour" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<strong><i class="icon-check" ></i>&nbsp;企鹅配送</strong>
+								<label>送货时间：</label>
+								<form>
+									<label class="radio">
+										<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+										只工作日送货
+									</label>
+									<label class="radio">
+										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										工作日、双休日与假日均可送货
+									</label>
+									<label class="radio">
+										<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+										只双休日、假日送货
+									</label>
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+								步骤 5: 付款方式
+							</a>
+						</div>
+						<div id="collapseFive" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<form>
+									<label class="radio">
+										<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+										在线支付</b>
+									</label>
+									<label class="radio">
+										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										货到付款</b>
+									</label>
+									<label class="radio">
+										<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+										邮局汇款</b>
+									</label>
+									<label class="radio">
+										<input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+										公司转账</b>
+									</label>
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
+								步骤 6: 确认订单
+							</a>
+						</div>
+						<div id="collapseSix" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<table class="table table-striped table-hover">
+									<thead>
+										<tr>
+											<th>Item Name</th>
+											<th>Qty</th>
+											<th>Unit Price</th>
+											<th>Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>AB29837</td>
+											<td>1</td>
+											<td>$333.33</td>
+											<td>$333.33</td>
+										</tr>
+										<tr>
+											<td>AC34423</td>
+											<td>2</td>
+											<td>$333.33</td>
+											<td>$666.66</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<dl class="dl-horizontal pull-right">
+									<dt>Sub-total:</dt>
+									<dd>$999.99</dd>
+
+									<dt>Shipping Cost:</dt>
+									<dd>$0.01</dd>
+
+									<dt>Total:</dt>
+									<dd>$1000.00</dd>
+								</dl>
+								<div class="clearfix"></div>
+								<a href="#" class="btn btn-success pull-right">提交订单</a>
+							</div>
+						</div>
+					</div>
+				</div>
+		<a href="/" class="btn btn-primary">继续购物</a>
+		</div>
+	</div>
+</div>
+}

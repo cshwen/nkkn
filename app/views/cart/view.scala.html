@@ -1,6 +1,6 @@
 @(lists: List[CartItem])
 
-	<h4>购物车 <a href="@routes.Carts.orderView" class="btn pull-right">一键下单</a></h4>
+	<h4>购物车 <a href="@routes.Carts.checkout" class="btn pull-right">一键下单</a></h4>
 	<div class="dropdown">
 	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 		<i class="icon-shopping-cart" >&nbsp;</i>
@@ -19,6 +19,6 @@
 		@lists.map { list =>
 		<p>@list.book.title  x @list.num <span class="pull-right">$ @list.price</span></p>
 		}
-		<a href="#" class="btn btn-primary">查看购物车</a>
+		<a href="@routes.Carts.index" class="btn btn-primary">查看购物车</a>
 	</div>
 	</div>

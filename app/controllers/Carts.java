@@ -6,14 +6,15 @@ import play.mvc.Content;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import views.html.cart.view;
 
 @Security.Authenticated(Secured.class)
 public class Carts extends Controller {
 
-	public static Result index() {
-		return TODO;
-		// return ok(index.render("Your new application is ready.",
-		// User.getUser(session().get("username"))));
+	public static Result index() { // 查看购物车
+		User user = User.getUser(session().get("username"));
+		return ok(views.html.cart.index.render(user, Category.findAll(),
+				User.getCart(user)));
 	}
 
 	public static Result view() {
@@ -41,14 +42,13 @@ public class Carts extends Controller {
 		return ok();
 	}
 
-	public static Result orderView() { // 下单购物车
-		User user = User.getUser(session().get("username"));
-		return ok(views.html.cart.index.render(user, Category.findAll(),
-				User.getCart(user)));
-	}
-
 	public static Result refresh() { // 刷新下单
 		return ok(views.html.cart.order.render(User.getCart(User
 				.getUser(session().get("username")))));
+	}
+
+	public static Result checkout() { // 确认订单
+		return ok(views.html.cart.checkout.render(
+				User.getUser(session().get("username")), Category.findAll()));
 	}
 }
