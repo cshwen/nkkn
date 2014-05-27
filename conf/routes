@@ -25,6 +25,13 @@ DELETE   /cart/clear                  controllers.Carts.clearCart()
 GET      /cart/refresh                controllers.Carts.refresh()
 GET      /cart/checkout               controllers.Carts.checkout()
 
+GET      /admin/books                 controllers.Books.list(p:Int ?= 0, s ?= "title", o ?= "asc", f ?= "")
+GET      /admin/books/new             controllers.Books.create()
+POST     /admin/books/save            controllers.Books.save()
+GET      /admin/books/:id             controllers.Books.edit(id:Long)
+POST     /admin/books/:id             controllers.Books.update(id:Long)
+POST     /admin/books/:id/delete      controllers.Books.delete(id:Long)
+
 # Javascript routing
 GET      /assets/javascripts/routes   controllers.Application.javascriptRoutes()
 

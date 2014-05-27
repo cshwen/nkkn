@@ -14,12 +14,12 @@
 			@helper.form(routes.Application.authenticate) {
 				<h4>Sign in</h4>
 				@if(form.hasGlobalErrors) {
-					<div class="alert alert-error">
+					<div class="login_sign alert alert-error">
 						<span>@form.globalError.message</span>
 					</div>
 				}
 				@if(flash.contains("success")) {
-				    <p class="success">
+				    <p class="login_sign success">
 				        @flash.get("success")
 				    </p>
 				}
@@ -40,7 +40,7 @@
         @helper.form(action=routes.Application.registerUser, 'id -> "register_form") {
 				<h4>注册页面</h4>
 					@if(rform.hasGlobalErrors) {
-					<div class="alert alert-error">
+					<div class="login_sign alert alert-error">
 						<span>@rform.globalError.message</span>
 					</div> }
 				<div>

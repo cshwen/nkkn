@@ -6,5 +6,4 @@ $('#myTab a').click(function(e) {
 $('#myTab a[href="#register"]').tab('show');
 $('#myTab a[href="#login"]').tab('show');
 
-setTimeout('$(".alert-error").hide("slow")',3000);
-setTimeout('$(".success").hide("slow")',3000);
+setTimeout('$(".login_sign ").hide("slow")',3000);

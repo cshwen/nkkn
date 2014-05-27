@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,5 +68,13 @@ public class Category extends Model {
 			list.add(new Integer(i));
 		}
 		return list;
+	}
+	
+	public static Map<String, String> options() {
+		LinkedHashMap<String, String> options = new LinkedHashMap<String, String>();
+		for (Category c : Category.find.orderBy("name").findList()) {
+			options.put(c.num.toString(), c.name);
+		}
+		return options;
 	}
 }

@@ -1,0 +1,146 @@
+@(user: User, currentPage: com.avaje.ebean.Page[Book], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@usermanage = {
+	@if(user == null) {
+		<li><a href="@routes.Application.login">登陆/注册</a></li>
+	} else {
+		<li><a href="#">@user.username </a></li>
+		<li class="divider-vertical"></li>
+		<li><a href="@routes.Application.logout">购物车</a></li>
+	}
+}
+@javascript =  {<script type="text/javascript" src="@routes.Assets.at("javascripts/home.js")"></script> }
+
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    routes.Books.list(newPage, sortBy, order, currentFilter)
+}
+
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main("后台管理 - - 图书")(usermanage)(javascript) {
+	<ul class="inline">
+            <li><form class="form-search" action="@link(0, "title")" method="GET">
+            <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="输入书名...">
+            <input type="submit" id="searchsubmit" value="查找" class="btn btn-primary">
+		</form></li>
+            <li><a class="btn btn-success" id="add" href="@routes.Books.create">添加图书</a></li>
+	</ul>
+	
+    @if(currentPage.getTotalRowCount == 0) {
+        <div class="well">
+            <em>查找不到记录！</em>
+        </div>
+    } else {
+		<table class="computers table table-bordered table-hover table-condensed">
+			<thead>
+                <tr>
+               		@header("id", "ID")
+                    @header("title", "标题")
+                    @header("author", "作者")
+                    @header("publisher", "出版社")
+                    @header("ISBN", "ISBN")
+                    @header("price", "价格")
+                    @header("pubtime", "出版时间")
+                    @header("score", "豆瓣评分")
+                    @header("stock", "库存")
+                    @header("sales", "销量")
+                </tr>
+            </thead>
+            <tbody>
+
+                @for(book <- currentPage.getList) {
+                    <tr>
+                        <td><a href="@routes.Books.edit(book.id)">@book.id</a></td>
+                        <td><a href="@routes.Books.edit(book.id)">@book.title</a></td>
+                        <td>
+                            @if(book.author == null) {
+                                <em>-</em>
+                            } else { @book.author }
+                        </td>
+                        <td>
+                            @if(book.publisher == null) {
+                                <em>-</em>
+                            } else { @book.publisher }
+                        </td>
+                        <td>
+                            @if(book.isbn == null) {
+                                <em>-</em>
+                            } else {  @book.isbn  }
+                        </td>
+                        <td>
+                            @if(book.price == null) {
+                                <em>-</em>
+                            } else {  @book.price  }
+                        </td>
+                        <td>
+                            @if(book.pubtime == null) {
+                                <em>-</em>
+                            } else { @book.pubtime.format("yyyy-MM-dd") }
+                        </td>
+                        <td>
+                            @if(book.score == null) {
+                                <em>-</em>
+                            } else {  @book.score  }
+                        </td>
+                        <td>
+                            @if(book.stock == null) {
+                                <em>-</em>
+                            } else {  @book.stock  }
+                        </td>
+                        <td>
+                            @if(book.sales == null) {
+                                <em>-</em>
+                            } else {  @book.sales  }
+                        </td>
+                    </tr> 
+				}
+			</tbody>
+		</table>
+		
+        <div class="pagination pagination-large pagination-centered">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @currentPage.getDisplayXtoYofZ(" to "," of ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>	
+	}
+}

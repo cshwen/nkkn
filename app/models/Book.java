@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.avaje.ebean.Page;
+
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -25,17 +27,16 @@ public class Book extends Model {
 	public String author;
 	public String publisher;
 	@Column(columnDefinition = "char(13)")
-	public String ISBN;
+	public String isbn;
 	@Column(columnDefinition = "char(32)")
 	public String price;
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
-	@Column(columnDefinition = "char(32)")
 	public Date pubtime;
 	public String pages;
 	@Column(columnDefinition = "TEXT")
 	public String summary;
-	public double score;
-	public float stock;
+	public float score;
+	public int stock;
 	public String imgPath;
 	public int sales;
 
@@ -63,13 +64,20 @@ public class Book extends Model {
 
 	public static List<Book> search(String str) { // 关键字找书
 		if (Isbn.checkout13(str) || Isbn.checkout10(str)) {
-			return find.where().eq("ISBN", str).findList();
+			return find.where().eq("isbn", str).findList();
 		}
 		return find
 				.where()
 				.or(com.avaje.ebean.Expr.like("name", "%" + str + "%"),
 						com.avaje.ebean.Expr.like("author", "%" + str + "%"))
 				.findPagingList(21).getPage(0).getList();
+	}
+
+	public static Page<Book> page(int page, int pageSize, String sortBy,
+			String order, String filter) { // admin显示
+		return find.where().ilike("title", "%" + filter + "%")
+				.orderBy(sortBy + " " + order).fetch("comments")
+				.findPagingList(pageSize).setFetchAhead(false).getPage(page);
 	}
 
 }
