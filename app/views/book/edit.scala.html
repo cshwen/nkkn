@@ -44,11 +44,11 @@
         <div>
             <input type="submit" value="保存信息" class="btn btn-primary"> or 
             <a href="@routes.Books.list()" class="btn btn-inverse">返回</a> 
-		    @form(routes.Books.delete(id), 'class -> "topRight") {
-		        <input type="submit" value="删除图书" class="btn btn-danger">
-		    }
         </div>
     }
+	@form(routes.Books.delete(id), 'class -> "topRight") {
+		 <input type="submit" value="删除图书" class="btn btn-danger">
+	 }
     
   </div></div>
 </div>

@@ -39,6 +39,7 @@
 
 @main("后台管理 - - 图书")(usermanage)(javascript) {
 	<ul class="inline">
+		<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
             <li><form class="form-search" action="@link(0, "title")" method="GET">
             <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="输入书名...">
             <input type="submit" id="searchsubmit" value="查找" class="btn btn-primary">
@@ -57,6 +58,7 @@
                		@header("id", "ID")
                     @header("title", "标题")
                     @header("author", "作者")
+                    <th>操作</th>
                     @header("publisher", "出版社")
                     @header("ISBN", "ISBN")
                     @header("price", "价格")
@@ -77,6 +79,7 @@
                                 <em>-</em>
                             } else { @book.author }
                         </td>
+                        <td><a href="@routes.Books.edit(book.id)"><i class="icon-edit"></i></a>&nbsp;<a href="@routes.Books.delete(book.id)"><i class="icon-trash"></i></a></td>
                         <td>
                             @if(book.publisher == null) {
                                 <em>-</em>

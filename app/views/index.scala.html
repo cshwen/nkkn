@@ -1,17 +1,7 @@
 @(message: String, user: User,categorys:List[Category],  books: List[Book])
 
-@usermanage = {
-	@if(user == null) {
-		<li><a href="@routes.Application.login">登陆/注册</a></li>
-	} else {
-		<li><a href="#">@user.username </a></li>
-		<li class="divider-vertical"></li>
-		<li><a href="@routes.Application.logout">购物车</a></li>
-	}
-}
-
 @javascript =  {<script type="text/javascript" src="@routes.Assets.at("javascripts/home.js")"></script> }
-@main("主页吗？")(usermanage)(javascript) {
+@main("主页吗？")(sys_case(user))(javascript) {
         
 <div class="container">
 		<div class="row">

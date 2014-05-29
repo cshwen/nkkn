@@ -128,4 +128,7 @@ public class User extends Model {
 		user.save();
 	}
 
+	public static int getRole(Long id) {
+		return User.find.ref(id).role;
+	}
 }

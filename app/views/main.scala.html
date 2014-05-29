@@ -1,9 +1,9 @@
-@(title: String)(usermanage: Html)(javascript: Html)(content: Html)
+@(title: String)(sys: Html)(javascript: Html)(content: Html)
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
-	<title>nkkn网上书城+@title</title>
+	<title>@title -- nkkn网上书城</title>
 
 	<!-- Included Bootstrap CSS Files -->
 	<link rel="stylesheet" href="@routes.Assets.at("javascripts/bootstrap/css/bootstrap.min.css")" />
@@ -29,19 +29,10 @@
 				<a class="brand" href="/">nkkn网上书城</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li class="active"><a href="/">首页</a></li>
+						<li class="active"><a href="/">首页&nbsp;<i class="icon-home"></i></a></li>
 						<li class=""><a href="#top">榜单</a></li>
 						<li class=""><a href="#review">书评</a></li>
 						<li class=""><a href="#about">关于</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">E-Commerce <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="index.html">E-commerce</a></li>
-								<li><a href="ecommerce-item.html">E-commerce Item</a></li>
-								<li><a href="ecommerce-cart.html">E-commerce Cart</a></li>
-								<li><a href="ecommerce-checkout.html">E-commerce Checkout</a></li>
-							</ul>
-						</li>
 					</ul>
 					@helper.form(action=routes.Books.search, 'class -> "navbar-form form-search pull-left") {
 						<div class="input-append">
@@ -50,7 +41,7 @@
 						</div>
 					}
 					<ul class="nav pull-right">
-					@usermanage
+					@sys
                     </ul>
 				</div>
 			</div>
