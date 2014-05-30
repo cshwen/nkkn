@@ -20,7 +20,7 @@
     <h1>编辑图书信息</h1>
     @form(routes.Books.update(id)) {
         <fieldset>
-            @inputText(bookFrom("id"), '_label -> "ID", 'class -> "uneditable-input")
+            @inputText(bookFrom("id"), '_label -> "ID", 'disabled->"", 'class -> "uneditable-input")
             @inputText(bookFrom("title"), '_label -> "书名")
             @inputText(bookFrom("author"), '_label -> "作者")
             @inputText(bookFrom("publisher"), '_label -> "出版社")

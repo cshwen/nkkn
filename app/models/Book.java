@@ -68,7 +68,7 @@ public class Book extends Model {
 		}
 		return find
 				.where()
-				.or(com.avaje.ebean.Expr.like("name", "%" + str + "%"),
+				.or(com.avaje.ebean.Expr.like("title", "%" + str + "%"),
 						com.avaje.ebean.Expr.like("author", "%" + str + "%"))
 				.findPagingList(21).getPage(0).getList();
 	}

@@ -1,0 +1,57 @@
+@(user:User)(usercontent:Html)
+@javascript =  {}
+@main("个人中心")(sys_case(user))(javascript) {
+<div class="container">
+	<div class="row">
+		<div class="span3">
+				<br>
+				<ul class="nav nav-tabs nav-stacked">
+					<li>
+						<a href="/">
+							<i class="icon-home"></i>&nbsp;首页
+						</a>
+					</li>
+					<li>
+						<a href="@routes.Users.index">
+							<i class="icon-user"></i>&nbsp;个人信息
+						</a>
+					</li>
+					<li>
+						<a href="@routes.Users.chgPwd">
+							<i class="icon-wrench"></i>&nbsp;修改密码
+						</a>
+					</li>
+					<li>
+						<a href="@routes.Carts.index">
+							<i class="icon-shopping-cart"></i>&nbsp;购物车
+						</a>
+					</li>
+					<li>
+						<a href="./plans.html">
+							<i class="icon-th-list"></i>&nbsp;历史订单
+						</a>
+					</li>
+					<li>
+						<a href="./plans.html">
+							<i class="icon-book"></i>&nbsp;评论
+						</a>
+					</li>
+					<li class="active">
+						<a href="@routes.Application.logout">
+							<i class="icon-stop"></i>&nbsp;退出
+						</a>
+					</li>
+				</ul>	
+				<hr>
+				
+				<div class="sidebar-extra">
+					<p>欢迎光临，因为我不知道要说什么好了 T_T</p>
+				</div> <!-- .sidebar-extra -->
+				<br>
+		</div>
+		
+		@usercontent
+
+	</div>
+</div>	
+}
