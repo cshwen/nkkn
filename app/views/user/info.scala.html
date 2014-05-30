@@ -6,12 +6,12 @@
 		<h3 class="page-title form-actions">
 			<i class="icon-th-large"></i> 用户个人信息
 		</h3>
-		<form id="edit-profile" class="form-horizontal">
+		<form id="updateInfo" class="form-horizontal" action=@routes.Users.updateInfo method="POST">
 			<fieldset>
 				<div class="control-group">
 					<label class="control-label" for="username">用户名：</label>
 					<div class="controls">
-						<input type="text" class="input-medium" id="username" value=@user.username disabled>
+						<input type="text" class="input-medium" value=@user.username disabled>
 						<p class="help-block">用户名是为登录而用，不能修改.</p>
 					</div>
 				</div>
@@ -19,7 +19,7 @@
 				<div class="control-group">
 					<label class="control-label" for="phone">手机：</label>
 					<div class="controls">
-						<input type="tel" class="input-medium" id="phone"
+						<input type="tel" class="input-medium" name="info_phone"
 							value=@user.phone>
 					</div>
 				</div>
@@ -27,21 +27,21 @@
 				<div class="control-group">
 					<label class="control-label" for="email">邮箱：</label>
 					<div class="controls">
-						<input type="email" class="input-large" id="email" value=@user.email>
+						<input type="email" class="input-large" name="info_email" value=@user.email>
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="role">角色：</label>
 					<div class="controls">
-						<input type="text" class="input-medium" id="role" value=@user.role disabled>
+						<input type="text" class="input-medium" value=@user.role disabled>
 					</div>
 				</div>
 				
 				<div class="control-group">
 					<label class="control-label" for="regtime">注册时间：</label>
 					<div class="controls">
-						<input type="text" class="input-large" id="regtime" value="@user.regtime" disabled>
+						<input type="text" class="input-large" value="@user.regtime" disabled>
 					</div>
 				</div>
 

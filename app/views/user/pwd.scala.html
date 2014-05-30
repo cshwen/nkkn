@@ -6,6 +6,40 @@
 		<h3 class="page-title form-actions">
 			<i class="icon-th-large"></i> 修改用户密码
 		</h3>
+		@if(flash.contains("pwdinfo")) {
+		<div class="alert alert-info">
+			@flash.get("pwdinfo")
+		</div>
+		}
+		<form id="changepwd" class="form-horizontal" action=@routes.Users.changePwd method="POST">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="oldpwd">当前密码：</label>
+					<div class="controls">
+						<input type="password" class="input-medium" name="oldpwd">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="newpwd">新密码：</label>
+					<div class="controls">
+						<input type="password" class="input-medium" name="newpwd">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="new2pwd">确认密码：</label>
+					<div class="controls">
+						<input type="password" class="input-medium" name="new2pwd">
+					</div>
+				</div>
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary">保存</button>
+					<input type="reset" class="btn" value="取消"></input>
+				</div>
+			</fieldset>
+		</form>
 	</div>
 </div>
 }

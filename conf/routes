@@ -33,8 +33,10 @@ POST     /admin/books/:id             controllers.Books.update(id:Long)
 GET      /admin/books/:id/delete      controllers.Books.delete(id:Long)
 POST     /admin/books/:id/delete      controllers.Books.delete(id:Long)
 
-GET      /user/index                  controllers.Users.index()
-GET      /user/chgpwd                 controllers.Users.chgPwd()
+GET      /user/info                   controllers.Users.info()
+POST     /user/updateInfo             controllers.Users.updateInfo()
+GET      /user/pwd                    controllers.Users.pwd()
+POST     /user/changePwd             controllers.Users.changePwd()
 
 # Javascript routing
 GET      /assets/javascripts/routes   controllers.Application.javascriptRoutes()

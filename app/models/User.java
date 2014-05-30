@@ -70,6 +70,10 @@ public class User extends Model {
 	public static User getUser(String username) {
 		return find.where().eq("username", username).findUnique();
 	}
+	
+	public static User getIdUser(String userid) {
+		return User.find.ref(Long.valueOf(userid));
+	}
 
 	public static boolean isExistUser(String username) { // 用户名是否存在
 		User user = find.where().eq("username", username).findUnique();
@@ -79,11 +83,22 @@ public class User extends Model {
 			return true;
 	}
 
-	public static boolean changePwd(long id, String pwd) { // 修改密码
+	public static void changeInfo(long id, String email, String phone) { // 修改电话/邮箱
 		User user = User.find.ref(id);
-		user.password = pwd;
-		user.update();
-		return true;
+		user.phone = phone;
+		user.email = email;
+		user.save();
+	}
+	
+	public static boolean changePwd(long id, String oldpwd, String newpwd) { // 修改密码
+		User user = User.find.ref(id);
+		if (!user.password.equals(oldpwd))
+			return false;
+		else {
+			user.password = newpwd;
+			user.update();
+			return true;
+		}
 	}
 
 	public static List<CartItem> getCart(User user) { // 获取购物车列表信息

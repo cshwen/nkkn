@@ -11,7 +11,6 @@ import views.html.*;
 
 public class Application extends Controller {
 	public static Result index() { // 首页待定
-		// return redirect(routes.Application.page(0));
 		return ok(index.render("Your new application is ready.",
 				User.getUser(session().get("username")), Category.findAll(),
 				Book.findPageBooks(21, 0)));
@@ -38,7 +37,7 @@ public class Application extends Controller {
 				Form.form(Register.class)));
 	}
 
-	public static Result authenticate() {
+	public static Result authenticate() { // 登录认证
 		Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
 		Form<Register> registerForm = Form.form(Register.class)
 				.bindFromRequest();
@@ -47,6 +46,8 @@ public class Application extends Controller {
 		} else {
 			session().clear();
 			session("username", loginForm.get().username);
+			session("userid",
+					User.getUser(session().get("username")).id.toString());
 			return redirect(routes.Application.index());
 		}
 	}
@@ -70,16 +71,6 @@ public class Application extends Controller {
 	}
 
 	public static Result registerUser() {
-		// Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
-		// Form<Register> registerForm = Form.form(Register.class)
-		// .bindFromRequest();
-		// if (registerForm.hasErrors()) {
-		// return badRequest(views.html.login.render(loginForm, registerForm));
-		// } else {
-		// session().clear();
-		// session("username", registerForm.get().username);
-		// return redirect(routes.Application.index());
-		// }
 		Form<Register> registerForm = Form.form(Register.class)
 				.bindFromRequest();
 		if (registerForm.hasErrors()) {
@@ -87,6 +78,8 @@ public class Application extends Controller {
 		} else {
 			session().clear();
 			session("username", registerForm.get().username);
+			session("userid",
+					User.getUser(session().get("username")).id.toString());
 			return ok();
 		}
 	}
@@ -123,6 +116,6 @@ public class Application extends Controller {
 				controllers.routes.javascript.Carts.deleteCart(),
 				controllers.routes.javascript.Carts.view(),
 				controllers.routes.javascript.Carts.refresh()
-				));
+		));
 	}
 }
