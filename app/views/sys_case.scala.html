@@ -4,8 +4,8 @@
 @if(user == null) {
 <li><a href="@routes.Application.login">登陆/注册</a></li>
 } else { 
-@user.role match { 
-  case 7 => {
+@user.role.name match { 
+  case "系统管理员" => {
 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<b class="caret"></b></a>
 	<ul class="dropdown-menu">
 		<li><a href="@routes.Books.list()">图书管理</a></li>
@@ -19,7 +19,7 @@
 <li><a href="@routes.Users.info">@user.username </a></li>
 <li><a href="@routes.Application.logout">退出</a></li>
   }
-  case 3 => {
+  case "运营管理员" => {
 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<b class="caret"></b></a>
 	<ul class="dropdown-menu">
 		<li><a href="@routes.Books.list()">图书管理</a></li>
@@ -32,7 +32,7 @@
 <li><a href="@routes.Users.info">@user.username </a></li>
 <li><a href="@routes.Application.logout">退出</a></li>
   }
-  case 1 => {
+  case "普通用户" => {
 <li class="divider-vertical"></li>
 <li><a href="@routes.Users.info">@user.username </a></li>
 <li><a href="@routes.Application.logout">退出</a></li>

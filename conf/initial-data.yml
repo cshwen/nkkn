@@ -1,25 +1,37 @@
+# Roles
+- &pt !!models.Role
+    id:      1
+    name:      普通用户
+
+- &yy !!models.Role
+    id:      3
+    name:      运营管理员
+    
+- &xt !!models.Role
+    id:      7
+    name:      系统管理员
 
 # Users
 - &csw !!models.User
     username:      csw
     password:   csw
+    role: *xt
     email:    icshwen@gmail.com
-    role:    1
     phone:    12345678901
     regtime:    2014-05-03
     
 - &lowstz !!models.User
     username:      lowstz
     password:   lowstz
+    role: *pt
     email:    lowstz@gmail.com
-    role:    1
     phone:    656565
     regtime:    2014-05-07
     
 - &test !!models.User
     username:    test
     password:   test
+    role: *yy
     email:    test@qq.com
-    role:    3
     phone:    123456
     regtime:    2014-07-08

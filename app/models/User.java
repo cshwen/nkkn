@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.avaje.ebean.Ebean;
@@ -29,10 +30,13 @@ public class User extends Model {
 	public String password;
 	@Email
 	public String email;
-	public int role;
 	public String phone;
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
 	public Date regtime;
+
+	// 一角色属一权限
+	@ManyToOne
+	public Role role;
 
 	// 一人多评论
 	@OneToMany(cascade = CascadeType.ALL)
@@ -50,7 +54,7 @@ public class User extends Model {
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.role = 3;
+		this.role = Role.getGeneralUser();
 	}
 
 	public static Finder<Long, User> find = new Finder<Long, User>(Long.class,
@@ -70,7 +74,7 @@ public class User extends Model {
 	public static User getUser(String username) {
 		return find.where().eq("username", username).findUnique();
 	}
-	
+
 	public static User getIdUser(String userid) {
 		return User.find.ref(Long.valueOf(userid));
 	}
@@ -89,7 +93,7 @@ public class User extends Model {
 		user.email = email;
 		user.save();
 	}
-	
+
 	public static boolean changePwd(long id, String oldpwd, String newpwd) { // 修改密码
 		User user = User.find.ref(id);
 		if (!user.password.equals(oldpwd))
@@ -143,7 +147,7 @@ public class User extends Model {
 		user.save();
 	}
 
-	public static int getRole(Long id) {
-		return User.find.ref(id).role;
+	public static Long getRole(Long id) {
+		return User.find.ref(id).role.id;
 	}
 }

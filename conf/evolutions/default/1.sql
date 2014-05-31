@@ -63,14 +63,20 @@ create table orders (
   constraint pk_orders primary key (id))
 ;
 
+create table role (
+  id                        bigint auto_increment not null,
+  name                      char(16),
+  constraint pk_role primary key (id))
+;
+
 create table user (
   id                        bigint auto_increment not null,
   username                  char(32),
   password                  char(32),
   email                     varchar(255),
-  role                      integer,
   phone                     varchar(255),
   regtime                   datetime,
+  role_id                   bigint,
   constraint pk_user primary key (id))
 ;
 
@@ -90,6 +96,8 @@ alter table order_item add constraint fk_order_item_book_7 foreign key (book_id)
 create index ix_order_item_book_7 on order_item (book_id);
 alter table orders add constraint fk_orders_user_8 foreign key (user_id) references user (id) on delete restrict on update restrict;
 create index ix_orders_user_8 on orders (user_id);
+alter table user add constraint fk_user_role_9 foreign key (role_id) references role (id) on delete restrict on update restrict;
+create index ix_user_role_9 on user (role_id);
 
 
 
@@ -108,6 +116,8 @@ drop table comment;
 drop table order_item;
 
 drop table orders;
+
+drop table role;
 
 drop table user;
 
