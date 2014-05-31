@@ -1,8 +1,8 @@
-@(user: User, categorys:List[Category])
+@(user: User, categorys:List[Category], cartLists: List[CartItem])
 
 @javascript = { }
 
-@main("-- 已下单")(sys_case(user))(javascript) {
+@main("确认订单")(sys_case(user))(javascript) {
 <div class="container">
 	<div class="row">
 		<div class="span3">
@@ -157,41 +157,31 @@
 							<div class="accordion-inner">
 								<table class="table table-striped table-hover">
 									<thead>
-										<tr>
-											<th>Item Name</th>
-											<th>Qty</th>
-											<th>Unit Price</th>
-											<th>Total</th>
-										</tr>
+										<tr><th>书名</th><th>数量</th><th>单价</th><th>总价</th></tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>AB29837</td>
-											<td>1</td>
-											<td>$333.33</td>
-											<td>$333.33</td>
-										</tr>
-										<tr>
-											<td>AC34423</td>
-											<td>2</td>
-											<td>$333.33</td>
-											<td>$666.66</td>
-										</tr>
+@cartLists.map { list =>
+<tr>
+	<td>@list.book.title</td>
+	<td>@list.num</td>
+	<td>@list.price</td>
+	<td>@{list.price*list.num}</td>
+</tr>
+}	
 									</tbody>
 								</table>
 
 								<dl class="dl-horizontal pull-right">
-									<dt>Sub-total:</dt>
-									<dd>$999.99</dd>
+									<dt>数量:</dt>
+									<dd>@{var num=0;for(p <- cartLists) {num+=p.num;}
+										num}</dd>
 
-									<dt>Shipping Cost:</dt>
-									<dd>$0.01</dd>
-
-									<dt>Total:</dt>
-									<dd>$1000.00</dd>
+									<dt>总计:</dt>
+									<dd>$@{var sum=0.00;for(p <- cartLists) {sum+=p.price*p.num;}
+										sum}</dd>
 								</dl>
 								<div class="clearfix"></div>
-								<a href="#" class="btn btn-success pull-right">提交订单</a>
+								<a href="@routes.Carts.push()" class="btn btn-success pull-right">提交订单</a>
 							</div>
 						</div>
 					</div>

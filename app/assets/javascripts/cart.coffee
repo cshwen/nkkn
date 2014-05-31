@@ -16,7 +16,7 @@ updateClick=(e)->
       refreshCartView()
       alert '更新失败，请重试！'
 
-$("#cartConsole #clear").click (e) ->
+$("#cartConsole #delete").click (e) ->
   clearClick(e)
 
 clearClick=(e)->
@@ -54,3 +54,14 @@ refreshCartView = ()->
       $("#cartConsole #clear").bind 'click', (e)=>clearClick(e)
     error:(err)->
       alert 'no'
+      
+$("#cartConsole #clear").click (e) ->
+  r=jsRoutes.controllers.Carts.clearCart()
+  $.ajax
+    type:r.type
+    url:r.url
+    success:(data)->
+      alert '已清空，返回首页'
+      window.location.replace('/')
+    error:(err)->
+      alert '清空失败，请重试！'

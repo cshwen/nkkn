@@ -142,9 +142,10 @@ public class User extends Model {
 		// .setParameter("id", cartId).execute();
 	}
 
-	public static void clearBook(User user) { // 清空购物车
-		user.cart.clear();
-		user.save();
+	public static void clearBook(long id) { // 清空购物车
+		Ebean.createSqlUpdate(
+	            "delete from cart_item where user_id = :id"
+	        ).setParameter("id", id).execute();
 	}
 
 	public static Long getRole(Long id) {

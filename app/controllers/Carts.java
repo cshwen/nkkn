@@ -2,11 +2,9 @@ package controllers;
 
 import models.Category;
 import models.User;
-import play.mvc.Content;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.cart.view;
 
 @Security.Authenticated(Secured.class)
 public class Carts extends Controller {
@@ -38,8 +36,8 @@ public class Carts extends Controller {
 	}
 
 	public static Result clearCart() {
-		User.clearBook(User.getUser(session().get("username")));
-		return ok();
+		User.clearBook(Long.valueOf(session().get("userid")));
+		return ok("已清空购物车");
 	}
 
 	public static Result refresh() { // 刷新下单
@@ -49,6 +47,11 @@ public class Carts extends Controller {
 
 	public static Result checkout() { // 确认订单
 		return ok(views.html.cart.checkout.render(
-				User.getUser(session().get("username")), Category.findAll()));
+				User.getUser(session().get("username")), Category.findAll(),
+				User.getCart(User.getUser(session().get("username")))));
+	}
+	
+	public static Result push(){ // 提交订单
+		return ok(views.html.cart.skip.render(User.getIdUser(session().get("userid"))));
 	}
 }

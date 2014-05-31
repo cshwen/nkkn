@@ -12,7 +12,7 @@
 	<td>@list.book.title</td>
 	<td><input id="cartitem" type="number" class="span1" value=@list.num />
 	&nbsp;<a id="update" data-cart-id=@list.id href="#">&nbsp;<i class="icon-refresh">&nbsp;</i></a>
-	&nbsp;<a id="clear" data-cart-id=@list.id href="#">&nbsp;<i class="icon-trash"></i>&nbsp;</a></td>
+	&nbsp;<a id="delete" data-cart-id=@list.id href="#">&nbsp;<i class="icon-trash"></i>&nbsp;</a></td>
 	<td>@list.price</td>
 	<td>@{list.price*list.num}</td>
 </tr>
@@ -32,3 +32,4 @@
 <div class="clearfix"></div>
 <a href="@routes.Carts.checkout" class="btn btn-success pull-right">结&nbsp;算</a>
 <a href="/" class="btn btn-primary">继续购物</a>
+<a id="clear" href="#" class="btn btn-warning">清空购物车</a>

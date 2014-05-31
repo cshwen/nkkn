@@ -1,0 +1,13 @@
+@(user: User)
+
+@javascript = { }
+
+@main("已下单")(sys_case(user))(javascript) {
+<div class="container">
+	<div class="row well" style="max-width: 400px; margin: 0 auto 10px;">
+              <button type="button" class="btn btn-large btn-block btn-primary">立即支付</button>
+              <a href=@routes.Users.info class="btn btn-large btn-block">返回个人中心</a>
+              <a href="/" class="btn btn-large btn-block">返回</a>
+	</div>
+</div>
+}

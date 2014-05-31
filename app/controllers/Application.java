@@ -115,7 +115,8 @@ public class Application extends Controller {
 				controllers.routes.javascript.Carts.alterCart(),
 				controllers.routes.javascript.Carts.deleteCart(),
 				controllers.routes.javascript.Carts.view(),
-				controllers.routes.javascript.Carts.refresh()
+				controllers.routes.javascript.Carts.refresh(),
+				controllers.routes.javascript.Carts.clearCart()
 		));
 	}
 }
