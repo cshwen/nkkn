@@ -55,6 +55,7 @@ public class User extends Model {
 		this.password = password;
 		this.email = email;
 		this.role = Role.getGeneralUser();
+		this.regtime = new Date();
 	}
 
 	public static Finder<Long, User> find = new Finder<Long, User>(Long.class,

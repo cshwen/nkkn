@@ -1,16 +1,7 @@
 @(user: User, book: Book)
 
-@usermanage = {
-	@if(user == null) {
-		<li><a href="@routes.Application.login">登陆/注册</a></li>
-	} else {
-		<li><a href="#">@user.username </a></li>
-		<li class="divider-vertical"></li>
-		<li><a href="@routes.Application.logout">购物车</a></li>
-	}
-}
 @javascript =  {<script type="text/javascript" src="@routes.Assets.at("javascripts/book.js")"></script> }
-@main(" - nkkn 网上书城")(usermanage)(javascript){
+@main(" - nkkn 网上书城")(sys_case(user))(javascript){
 	@book.title
 	@book.price
 	@book.isbn

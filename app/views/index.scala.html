@@ -1,7 +1,7 @@
 @(message: String, user: User,categorys:List[Category],  books: List[Book])
 
 @javascript =  {<script type="text/javascript" src="@routes.Assets.at("javascripts/home.js")"></script> }
-@main("主页吗？")(sys_case(user))(javascript) {
+@main(message)(sys_case(user))(javascript) {
         
 <div class="container">
 		<div class="row">

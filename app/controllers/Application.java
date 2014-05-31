@@ -11,7 +11,7 @@ import views.html.*;
 
 public class Application extends Controller {
 	public static Result index() { // 首页待定
-		return ok(index.render("Your new application is ready.",
+		return ok(index.render("欢迎光临 ",
 				User.getUser(session().get("username")), Category.findAll(),
 				Book.findPageBooks(21, 0)));
 	}

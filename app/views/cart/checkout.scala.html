@@ -1,18 +1,8 @@
 @(user: User, categorys:List[Category])
 
-@usermanage = {
-	@if(user == null) {
-		<li><a href="@routes.Application.login">登陆/注册</a></li>
-	} else {
-		<li><a href="#">@user.username </a></li>
-		<li class="divider-vertical"></li>
-		<li><a href="@routes.Application.logout">购物车</a></li>
-	}
-} 
-
 @javascript = { }
 
-@main("-- 已下单")(usermanage)(javascript) {
+@main("-- 已下单")(sys_case(user))(javascript) {
 <div class="container">
 	<div class="row">
 		<div class="span3">

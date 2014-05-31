@@ -1,20 +1,11 @@
 @(user: User, bookFrom: Form[Book])
 
-@usermanage = {
-	@if(user == null) {
-		<li><a href="@routes.Application.login">登陆/注册</a></li>
-	} else {
-		<li><a href="#">@user.username </a></li>
-		<li class="divider-vertical"></li>
-		<li><a href="@routes.Application.logout">购物车</a></li>
-	}
-}
 @javascript =  {<script type="text/javascript" src="@routes.Assets.at("javascripts/home.js")"></script> }
 
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
 
-@main("后台管理 - - 图书")(usermanage)(javascript) {
+@main("后台管理 - - 图书")(sys_case(user))(javascript) {
 <div class="container">
   <div class="row"><div class="span11">
     <h1>添加新的图书</h1>
