@@ -26,11 +26,12 @@ public class Role extends Model {
 	public static Finder<Long, Role> find = new Finder<Long, Role>(Long.class,
 			Role.class);
 
-	public static Map<Long, String> options() {
-		LinkedHashMap<Long, String> options = new LinkedHashMap<Long, String>();
+	public static Map<String, String> options() {
+		LinkedHashMap<String, String> options = new LinkedHashMap<String, String>();
 		for (Role c : Role.find.orderBy("name").findList()) {
-			options.put(c.id, c.name);
+			options.put(c.id.toString(), c.name);
 		}
 		return options;
 	}
+
 }

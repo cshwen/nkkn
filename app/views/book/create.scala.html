@@ -1,4 +1,4 @@
-@(user: User, bookFrom: Form[Book])
+@(user: User, bookForm: Form[Book])
 
 @javascript =  {<script type="text/javascript" src="@routes.Assets.at("javascripts/home.js")"></script> }
 
@@ -11,20 +11,20 @@
     <h1>添加新的图书</h1>
     @form(routes.Books.save()) {
         <fieldset>
-            @inputText(bookFrom("title"), '_label -> "书名")
-            @inputText(bookFrom("author"), '_label -> "作者")
-            @inputText(bookFrom("publisher"), '_label -> "出版社")
-            @inputText(bookFrom("isbn"), '_label -> "ISBN")
-            @inputText(bookFrom("price"), '_label -> "价格")
-            @inputDate(bookFrom("pubtime"), '_label -> "出版日期")
-            @inputText(bookFrom("pages"), '_label -> "页数")
-            @textarea(bookFrom("summary"), '_label -> "简介", 'rows -> 4 , 'class -> "input-xxlarge")
-            @inputText(bookFrom("score"), '_label -> "豆瓣评分", 'type->"number")
-            @inputText(bookFrom("stock"), '_label -> "库存", 'type->"number")
-            @inputText(bookFrom("imgPath"), '_label -> "图片路径")
-            @inputText(bookFrom("sales"), '_label -> "销量",  'type -> "text")
+            @inputText(bookForm("title"), '_label -> "书名")
+            @inputText(bookForm("author"), '_label -> "作者")
+            @inputText(bookForm("publisher"), '_label -> "出版社")
+            @inputText(bookForm("isbn"), '_label -> "ISBN")
+            @inputText(bookForm("price"), '_label -> "价格")
+            @inputDate(bookForm("pubtime"), '_label -> "出版日期")
+            @inputText(bookForm("pages"), '_label -> "页数")
+            @textarea(bookForm("summary"), '_label -> "简介", 'rows -> 4 , 'class -> "input-xxlarge")
+            @inputText(bookForm("score"), '_label -> "豆瓣评分", 'type->"number")
+            @inputText(bookForm("stock"), '_label -> "库存", 'type->"number")
+            @inputText(bookForm("imgPath"), '_label -> "图片路径")
+            @inputText(bookForm("sales"), '_label -> "销量",  'type -> "text")
             @select(
-                bookFrom("category.num"), 
+                bookForm("category.num"), 
                 options(Category.options), 
                 '_label -> "分类", '_default -> "-- 选择图书分类 --",
                 '_showConstraints -> false

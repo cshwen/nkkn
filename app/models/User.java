@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Page;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints.Email;
@@ -22,16 +23,14 @@ import play.db.ebean.Model;
 public class User extends Model {
 	@Id
 	public Long id;
-	@Required
 	@Column(columnDefinition = "char(32)")
 	public String username;
-	@Required
 	@Column(columnDefinition = "char(32)")
 	public String password;
 	@Email
 	public String email;
 	public String phone;
-	@Formats.DateTime(pattern = "yyyy-MM-dd")
+	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date regtime;
 
 	// 一角色属一权限
@@ -150,5 +149,12 @@ public class User extends Model {
 
 	public static Long getRole(Long id) {
 		return User.find.ref(id).role.id;
+	}
+
+	public static Page<User> page(int page, int pageSize, String sortBy,
+			String order, String filter) { // admin显示
+		return find.where().ilike("username", "%" + filter + "%")
+				.orderBy(sortBy + " " + order).fetch("orders").fetch("cart")
+				.findPagingList(pageSize).setFetchAhead(false).getPage(page);
 	}
 }

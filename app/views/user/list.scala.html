@@ -1,0 +1,116 @@
+@(user: User, currentPage: com.avaje.ebean.Page[User], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@javascript =  { }
+
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    routes.Users.list(newPage, sortBy, order, currentFilter)
+}
+
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main("后台管理 - - 用户")(sys_case(user))(javascript) {
+	<ul class="inline">
+		<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li><form class="form-search" action="@link(0, "username")" method="GET">
+            <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="输入用户名...">
+            <input type="submit" id="searchsubmit" value="查找" class="btn btn-primary">
+		</form></li>
+            <li><a class="btn btn-success" id="add" href="@routes.Users.create">添加用户</a></li>
+	</ul>
+	
+    @if(currentPage.getTotalRowCount == 0) {
+        <div class="well">
+            <em>查找不到记录！</em>
+        </div>
+    } else {
+		<table class="computers table table-bordered table-hover table-condensed">
+			<thead>
+                <tr>
+					@header("id", "ID")
+                    @header("username", "用户名")
+                    <th>操作</th>
+                    @header("email", "邮箱")
+                    @header("phone", "手机")
+                    @header("role", "角色")
+                    @header("regtime", "注册时间")
+                </tr>
+            </thead>
+            <tbody>
+
+                @for(user <- currentPage.getList) {
+                    <tr>
+                        <td><a href="@routes.Users.edit(user.id)">@user.id</a></td>
+                        <td><a href="@routes.Users.edit(user.id)">@user.username</a></td>
+                        <td><a href="@routes.Users.edit(user.id)"><i class="icon-edit"></i></a>&nbsp;<a href="@routes.Users.delete(user.id)"><i class="icon-trash"></i></a></td>
+                        <td>
+                            @if(user.email == null) {
+                                <em>-</em>
+                            } else { @user.email }
+                        </td>
+                        <td>
+                            @if(user.phone == null) {
+                                <em>-</em>
+                            } else { @user.phone }
+                        </td>
+                        <td>
+                            @if(user.role == null) {
+                                <em>-</em>
+                            } else {  @user.role.name  }
+                        </td>
+                        <td>
+                            @if(user.regtime == null) {
+                                <em>-</em>
+                            } else { @user.regtime.format("yyyy-MM-dd HH:mm:ss") }
+                        </td>
+                    </tr> 
+				}
+			</tbody>
+		</table>
+		
+        <div class="pagination pagination-large pagination-centered">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @currentPage.getDisplayXtoYofZ(" to "," of ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>	
+	}
+}

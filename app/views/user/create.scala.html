@@ -1,0 +1,34 @@
+@(user: User, userForm: Form[User])
+
+@javascript =  {<script type="text/javascript" src="@routes.Assets.at("javascripts/home.js")"></script> }
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main("后台管理 - - 图书")(sys_case(user))(javascript) {
+<div class="container">
+  <div class="row"><div class="span11">
+    <h1>添加新的图书</h1>
+    @form(routes.Users.save()) {
+        <fieldset>
+            @inputText(userForm("username"), '_label -> "用户名")
+            @inputText(userForm("password"), '_label -> "密码", 'type -> "password")
+            @inputText(userForm("email"), '_label -> "邮箱", 'type -> "email")
+            @inputText(userForm("phone"), '_label -> "手机", 'type -> "tel")
+            @select(
+                userForm("role.id"), 
+                options(Role.options), 
+                '_label -> "角色", '_default -> "-- 选择用户权限 --",
+                '_showConstraints -> false
+            )
+        </fieldset>
+        
+        <div>
+            <input type="submit" value="添加图书" class="btn btn-primary"> or 
+            <a href="@routes.Users.list()" class="btn btn-inverse">返回</a> 
+        </div>
+    }
+    
+  </div></div>
+</div>
+}

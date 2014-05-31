@@ -39,32 +39,35 @@ public class Books extends Controller {
 				Book.page(page, 10, sortBy, order, filter), sortBy, order,
 				filter));
 	}
+
 	public static Result create() {
-        Form<Book> bookFrom = form(Book.class);
-        return ok(
-            views.html.book.create.render(User.getUser(session().get("username")),bookFrom)
-        );
-    }
-    
-    public static Result save() {
-        Form<Book> bookFrom = form(Book.class).bindFromRequest();
-        if(bookFrom.hasErrors()) {
-            return badRequest(views.html.book.create.render(User.getUser(session().get("username")),bookFrom));
-        }
-        bookFrom.get().save();
-        flash("success", "Book " + bookFrom.get().title + " has been created");
-        return BookAdminHome;
-    }
-    
+		Form<Book> bookFrom = form(Book.class);
+		return ok(views.html.book.create.render(
+				User.getUser(session().get("username")), bookFrom));
+	}
+
+	public static Result save() {
+		Form<Book> bookFrom = form(Book.class).bindFromRequest();
+		if (bookFrom.hasErrors()) {
+			return badRequest(views.html.book.create.render(
+					User.getUser(session().get("username")), bookFrom));
+		}
+		bookFrom.get().save();
+		flash("success", "Book " + bookFrom.get().title + " has been created");
+		return BookAdminHome;
+	}
+
 	public static Result edit(Long id) {
 		Form<Book> bookFrom = form(Book.class).fill(Book.find.byId(id));
-		return ok(views.html.book.edit.render(User.getUser(session().get("username")),id, bookFrom));
+		return ok(views.html.book.edit.render(
+				User.getUser(session().get("username")), id, bookFrom));
 	}
 
 	public static Result update(Long id) {
 		Form<Book> bookFrom = form(Book.class).bindFromRequest();
 		if (bookFrom.hasErrors()) {
-			return badRequest(views.html.book.edit.render(User.getUser(session().get("username")),id, bookFrom));
+			return badRequest(views.html.book.edit.render(
+					User.getUser(session().get("username")), id, bookFrom));
 		}
 		bookFrom.get().update(id);
 		flash("success", "Book " + bookFrom.get().title + " has been updated");

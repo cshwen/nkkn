@@ -1,0 +1,38 @@
+@(user: User, id: Long, userFrom: Form[User])
+
+@javascript =  {  }
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main("后台管理 - - 用户")(sys_case(user))(javascript) {
+<div class="container">
+  <div class="row"><div class="span11">
+    <h1>编辑用户信息</h1> 
+    @form(routes.Users.update(id)) {
+        <fieldset>
+            @inputText(userFrom("id"), '_label -> "ID", 'disabled->"", 'class -> "uneditable-input")
+            @inputText(userFrom("username"), '_label -> "用户名", 'disabled->"", 'class -> "uneditable-input")
+            @inputText(userFrom("email"), '_label -> "邮箱", 'type -> "email")
+            @inputText(userFrom("phone"), '_label -> "手机", 'type -> "tel")
+            @inputText(userFrom("regtime"), '_label -> "注册日期", 'disabled->"", 'class -> "uneditable-input")
+            @select(
+                userFrom("role.id"), 
+                options(Role.options), 
+                '_label -> "角色", '_default -> "-- 选择用户权限 --",
+                '_showConstraints -> false
+            )
+        </fieldset>
+        
+        <div>
+            <input type="submit" value="保存信息" class="btn btn-primary"> or 
+            <a href="@routes.Users.list()" class="btn btn-inverse">返回</a> 
+        </div>
+    }
+	@form(routes.Users.delete(id), 'class -> "topRight") {
+		 <input type="submit" value="删除用户" class="btn btn-danger">
+	 }
+    
+  </div></div>
+</div>
+}

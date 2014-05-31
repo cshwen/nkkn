@@ -36,7 +36,15 @@ POST     /admin/books/:id/delete      controllers.Books.delete(id:Long)
 GET      /user/info                   controllers.Users.info()
 POST     /user/updateInfo             controllers.Users.updateInfo()
 GET      /user/pwd                    controllers.Users.pwd()
-POST     /user/changePwd             controllers.Users.changePwd()
+POST     /user/changePwd              controllers.Users.changePwd()
+
+GET      /admin/users                 controllers.Users.list(p:Int ?= 0, s ?= "username", o ?= "asc", f ?= "")
+GET      /admin/users/new             controllers.Users.create()
+POST     /admin/users/save            controllers.Users.save()
+GET      /admin/users/:id             controllers.Users.edit(id:Long)
+POST     /admin/users/:id             controllers.Users.update(id:Long)
+GET      /admin/users/:id/delete      controllers.Users.delete(id:Long)
+POST     /admin/users/:id/delete      controllers.Users.delete(id:Long)
 
 # Javascript routing
 GET      /assets/javascripts/routes   controllers.Application.javascriptRoutes()
