@@ -1,13 +1,29 @@
-@(user: User)
+@(user: User, odf: Orderof)
 
 @javascript = { }
 
 @main("已下单")(sys_case(user))(javascript) {
 <div class="container">
 	<div class="row well" style="max-width: 400px; margin: 0 auto 10px;">
-              <button type="button" class="btn btn-large btn-block btn-primary">立即支付</button>
-              <a href=@routes.Users.info class="btn btn-large btn-block">返回个人中心</a>
-              <a href="/" class="btn btn-large btn-block">返回</a>
+		<div  class="row-fluid">
+			<div class="span3"><label>订单号：</label></div>
+			<div class="span9 text-success">@odf.record</div>
+		</div>
+		<div  class="row-fluid">
+			<div class="span3"><label>待付款：</label></div>
+			<div class="span9 text-info">@odf.sum</div>
+		</div>
+		<div  class="row-fluid">
+			<div class="span3"><label>数量：</label></div>
+			<div class="span9 text-success">@odf.num</div>
+		</div>
+		<div  class="row-fluid">
+			<div class="span3"><label>下单时间：</label></div>
+			<div class="span9 text-success">@odf.time.format("yyyy-MM-dd HH:mm:ss")</div>
+		</div>
+		<button type="button" class="btn btn-large btn-block btn-primary">立即支付</button>
+		<a href=@routes.Users.info class="btn btn-large btn-block">返回个人中心</a>
+		<a href="/" class="btn btn-large btn-block">返回</a>
 	</div>
 </div>
 }

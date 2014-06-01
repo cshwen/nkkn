@@ -16,7 +16,6 @@ import com.avaje.ebean.Page;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints.Email;
-import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 @Entity
@@ -47,7 +46,7 @@ public class User extends Model {
 
 	// 一人多历史订单
 	@OneToMany(cascade = CascadeType.ALL)
-	public List<Orders> orders = new ArrayList<Orders>();
+	public List<Orderof> orders = new ArrayList<Orderof>();
 
 	public User(String username, String password, String email) {
 		this.username = username;

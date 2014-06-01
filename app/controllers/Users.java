@@ -85,8 +85,6 @@ public class Users extends Controller {
 	public static Result update(Long id) {
 		Form<User> userForm = Form.form(User.class).bindFromRequest();
 		if (userForm.hasErrors()) {
-			System.out.println("cshwen输出错误:\n");
-			System.out.println(userForm.errors());
 			return badRequest(views.html.user.edit.render(
 					User.getUser(session().get("username")), id, userForm));
 		}

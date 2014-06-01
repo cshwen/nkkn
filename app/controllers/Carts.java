@@ -1,10 +1,17 @@
 package controllers;
 
+import java.util.Date;
+import com.avaje.ebean.Ebean;
+import models.CartItem;
+import models.CartState;
 import models.Category;
+import models.OrderItem;
+import models.Orderof;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import utils.Order;
 
 @Security.Authenticated(Secured.class)
 public class Carts extends Controller {
@@ -50,8 +57,35 @@ public class Carts extends Controller {
 				User.getUser(session().get("username")), Category.findAll(),
 				User.getCart(User.getUser(session().get("username")))));
 	}
-	
-	public static Result push(){ // 提交订单
-		return ok(views.html.cart.skip.render(User.getIdUser(session().get("userid"))));
+
+	public static Result push() { // 提交订单
+		String orderRecordId = Order.getOrderId(session().get("userid"));
+		Ebean.beginTransaction();
+		try {
+			User user = Ebean.find(User.class, session().get("userid"));
+			double sum = 0;
+			int num = 0;
+			Orderof orders = new Orderof();
+			for (CartItem cartItem : user.cart) {
+				OrderItem orderItem = new OrderItem(cartItem);
+				sum += orderItem.price;
+				num += orderItem.num;
+				orders.orderItem.add(orderItem);
+			}
+			orders.record = orderRecordId;
+			orders.sum = sum;
+			orders.num = num;
+			orders.time = new Date();
+			orders.cartState = CartState.getNewCart();
+			user.orders.add(orders);
+			Ebean.save(user);
+			clearCart();
+			Ebean.commitTransaction();
+		} finally {
+			Ebean.endTransaction();
+		}
+		Orderof odf = Orderof.getOrder(orderRecordId);
+		return ok(views.html.cart.skip.render(
+				User.getIdUser(session().get("userid")), odf));
 	}
 }

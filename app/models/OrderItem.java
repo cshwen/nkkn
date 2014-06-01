@@ -14,4 +14,10 @@ public class OrderItem extends Model {
 	public Book book;
 	public int num;
 	public double price;
+
+	public OrderItem(CartItem cartItem) {
+		this.book = cartItem.book;
+		this.num = cartItem.num;
+		this.price = cartItem.price;
+	}
 }

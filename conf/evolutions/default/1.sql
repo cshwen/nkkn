@@ -30,6 +30,12 @@ create table cart_item (
   constraint pk_cart_item primary key (id))
 ;
 
+create table cart_state (
+  id                        bigint auto_increment not null,
+  name                      char(16),
+  constraint pk_cart_state primary key (id))
+;
+
 create table category (
   num                       char(2) not null,
   name                      char(32),
@@ -47,20 +53,22 @@ create table comment (
 
 create table order_item (
   id                        bigint auto_increment not null,
-  orders_id                 bigint not null,
+  orderof_id                bigint not null,
   book_id                   bigint,
   num                       integer,
   price                     double,
   constraint pk_order_item primary key (id))
 ;
 
-create table orders (
+create table orderof (
   id                        bigint auto_increment not null,
   user_id                   bigint not null,
+  record                    char(32),
   sum                       double,
+  num                       integer,
   time                      datetime,
-  state                     char(16),
-  constraint pk_orders primary key (id))
+  cart_state_id             bigint,
+  constraint pk_orderof primary key (id))
 ;
 
 create table role (
@@ -90,14 +98,16 @@ alter table comment add constraint fk_comment_user_4 foreign key (user_id) refer
 create index ix_comment_user_4 on comment (user_id);
 alter table comment add constraint fk_comment_book_5 foreign key (book_id) references book (id) on delete restrict on update restrict;
 create index ix_comment_book_5 on comment (book_id);
-alter table order_item add constraint fk_order_item_orders_6 foreign key (orders_id) references orders (id) on delete restrict on update restrict;
-create index ix_order_item_orders_6 on order_item (orders_id);
+alter table order_item add constraint fk_order_item_orderof_6 foreign key (orderof_id) references orderof (id) on delete restrict on update restrict;
+create index ix_order_item_orderof_6 on order_item (orderof_id);
 alter table order_item add constraint fk_order_item_book_7 foreign key (book_id) references book (id) on delete restrict on update restrict;
 create index ix_order_item_book_7 on order_item (book_id);
-alter table orders add constraint fk_orders_user_8 foreign key (user_id) references user (id) on delete restrict on update restrict;
-create index ix_orders_user_8 on orders (user_id);
-alter table user add constraint fk_user_role_9 foreign key (role_id) references role (id) on delete restrict on update restrict;
-create index ix_user_role_9 on user (role_id);
+alter table orderof add constraint fk_orderof_user_8 foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_orderof_user_8 on orderof (user_id);
+alter table orderof add constraint fk_orderof_cartState_9 foreign key (cart_state_id) references cart_state (id) on delete restrict on update restrict;
+create index ix_orderof_cartState_9 on orderof (cart_state_id);
+alter table user add constraint fk_user_role_10 foreign key (role_id) references role (id) on delete restrict on update restrict;
+create index ix_user_role_10 on user (role_id);
 
 
 
@@ -109,13 +119,15 @@ drop table book;
 
 drop table cart_item;
 
+drop table cart_state;
+
 drop table category;
 
 drop table comment;
 
 drop table order_item;
 
-drop table orders;
+drop table orderof;
 
 drop table role;
 

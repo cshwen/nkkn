@@ -35,3 +35,13 @@
     email:    test@qq.com
     phone:    123456
     regtime:    2014-07-08
+    
+# CartState
+- &wfk !!models.CartState
+    name:      未付款
+
+- &yfk !!models.CartState
+    name:      已付款
+    
+- &yfh !!models.CartState
+    name:      已发货
