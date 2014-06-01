@@ -1,0 +1,101 @@
+@(user: User, currentPage: com.avaje.ebean.Page[Orderof], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@javascript =  { }
+
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    routes.Users.list(newPage, sortBy, order, currentFilter)
+}
+
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main("后台管理 - - 订单")(sys_case(user))(javascript) {
+	<ul class="inline">
+		<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li><form class="form-search" action="@link(0, "username")" method="GET">
+            <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="输入订单号...(可部分)">
+            <input type="submit" id="searchsubmit" value="查找" class="btn btn-primary">
+		</form></li>
+	</ul>
+	
+    @if(currentPage.getTotalRowCount == 0) {
+        <div class="well">
+            <em>查找不到记录！</em>
+        </div>
+    } else {
+		<table class="computers table table-bordered table-hover table-condensed">
+			<thead>
+                <tr>
+					@header("id", "ID")
+                    @header("record", "订单号")
+                    @header("cartState", "状态")
+                    @header("sum", "总计")
+                    @header("num", "数量")
+                    @header("time", "下单时间")
+                </tr>
+            </thead>
+            <tbody>
+
+                @for(order <- currentPage.getList) {
+                    <tr>
+                        <td><a href="#">@order.id</a></td>
+                        <td><a href="#">@order.record</a></td>
+                        <td>
+                            @if(order.cartState == null) {
+                                <em>-</em>
+                            } else { @order.cartState.name }
+                        </td>
+                        <td>@order.sum</td>
+                        <td>@order.num</td>
+                        <td>@order.time.format("yyyy-MM-dd HH:mm:ss")</td>
+                    </tr> 
+				}
+			</tbody>
+		</table>
+		
+        <div class="pagination pagination-large pagination-centered">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @currentPage.getDisplayXtoYofZ(" to "," of ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>	
+	}
+}

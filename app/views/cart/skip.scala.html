@@ -21,7 +21,9 @@
 			<div class="span3"><label>下单时间：</label></div>
 			<div class="span9 text-success">@odf.time.format("yyyy-MM-dd HH:mm:ss")</div>
 		</div>
-		<button type="button" class="btn btn-large btn-block btn-primary">立即支付</button>
+		<form action=@routes.Orderofs.payment(odf.id) method="POST">
+			<button type="submit" class="btn btn-large btn-block btn-primary">立即支付</button>
+		</form>
 		<a href=@routes.Users.info class="btn btn-large btn-block">返回个人中心</a>
 		<a href="/" class="btn btn-large btn-block">返回</a>
 	</div>

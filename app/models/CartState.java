@@ -25,6 +25,12 @@ public class CartState extends Model {
 		cs.name = "未付款";
 		return cs;
 	}
+	public static CartState getPayment() {
+		CartState cs = new CartState();
+		cs.id = 2L;
+		cs.name = "已付款";
+		return cs;
+	}
 
 	public static Map<String, String> options() {
 		LinkedHashMap<String, String> options = new LinkedHashMap<String, String>();

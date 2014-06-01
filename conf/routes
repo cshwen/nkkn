@@ -13,19 +13,22 @@ POST     /register                    controllers.Application.registerUser()
 GET      /logout                      controllers.Application.logout()
 PUT      /login                       controllers.Application.isExistUser(username: String)
 
+# 图书
 GET      /books/:bookid               controllers.Books.view(bookid: Long)
 GET      /search/                     controllers.Books.search()
 
+# 购物车
 GET      /cart                        controllers.Carts.index()
 GET      /cart/view                   controllers.Carts.view()
-POST     /cart/:bookid                controllers.Carts.addCart(bookid: Long)
-POST     /cart/:cartid/:num           controllers.Carts.alterCart(cartid: Long, num: Integer)
-DELETE   /cart/d/:cartid                controllers.Carts.deleteCart(cartid: Long)
+POST     /cart/add/:bookid            controllers.Carts.addCart(bookid: Long)
+POST     /cart/alt/:cartid/:num       controllers.Carts.alterCart(cartid: Long, num: Integer)
+DELETE   /cart/del/:cartid            controllers.Carts.deleteCart(cartid: Long)
 DELETE   /cart/clear                  controllers.Carts.clearCart()
 GET      /cart/refresh                controllers.Carts.refresh()
 GET      /cart/checkout               controllers.Carts.checkout()
-GET      /cart/push                   controllers.Carts.push()
+POST     /cart/push                   controllers.Carts.push()
 
+# 图书管理
 GET      /admin/books                 controllers.Books.list(p:Int ?= 0, s ?= "title", o ?= "asc", f ?= "")
 GET      /admin/books/new             controllers.Books.create()
 POST     /admin/books/save            controllers.Books.save()
@@ -34,11 +37,13 @@ POST     /admin/books/:id             controllers.Books.update(id:Long)
 GET      /admin/books/:id/delete      controllers.Books.delete(id:Long)
 POST     /admin/books/:id/delete      controllers.Books.delete(id:Long)
 
+# 用户
 GET      /user/info                   controllers.Users.info()
 POST     /user/updateInfo             controllers.Users.updateInfo()
 GET      /user/pwd                    controllers.Users.pwd()
 POST     /user/changePwd              controllers.Users.changePwd()
 
+# 用户管理
 GET      /admin/users                 controllers.Users.list(p:Int ?= 0, s ?= "username", o ?= "asc", f ?= "")
 GET      /admin/users/new             controllers.Users.create()
 POST     /admin/users/save            controllers.Users.save()
@@ -46,6 +51,10 @@ GET      /admin/users/:id             controllers.Users.edit(id:Long)
 POST     /admin/users/:id             controllers.Users.update(id:Long)
 GET      /admin/users/:id/delete      controllers.Users.delete(id:Long)
 POST     /admin/users/:id/delete      controllers.Users.delete(id:Long)
+
+# 订单管理
+GET      /admin/orders                controllers.Orderofs.list(p:Int ?= 0, s ?= "id", o ?= "asc", f ?= "")
+POST     /orders/payment/:id          controllers.Orderofs.payment(id: Long)
 
 # Javascript routing
 GET      /assets/javascripts/routes   controllers.Application.javascriptRoutes()

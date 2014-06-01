@@ -181,7 +181,9 @@
 										sum}</dd>
 								</dl>
 								<div class="clearfix"></div>
-								<a href="@routes.Carts.push()" class="btn btn-success pull-right">提交订单</a>
+								<form action=@routes.Carts.push() method="POST">
+									<button type="submit" class="btn btn-success pull-right">提交订单</button>
+								</form>
 							</div>
 						</div>
 					</div>

@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.avaje.ebean.Page;
+
 import play.data.format.Formats;
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
@@ -26,7 +28,7 @@ public class Orderof extends Model {
 	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date time;
 
-	// 一订单一状态
+	// 多订单一状态
 	@ManyToOne
 	public CartState cartState;
 	// 一订单多商品
@@ -40,4 +42,16 @@ public class Orderof extends Model {
 		return find.where().eq("record", rd).findUnique();
 	}
 
+	public static void setPayment(long id) {
+		Orderof odf = find.ref(id);
+		odf.cartState = CartState.getPayment();
+		odf.save();
+	}
+
+	public static Page<Orderof> page(int page, int pageSize, String sortBy,
+			String order, String filter) { // admin显示
+		return find.where().ilike("record", "%" + filter + "%")
+				.orderBy(sortBy + " " + order).fetch("orderItem")
+				.findPagingList(pageSize).setFetchAhead(false).getPage(page);
+	}
 }
