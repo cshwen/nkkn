@@ -125,6 +125,38 @@ public class User extends Model {
 		user.save();
 	}
 
+	public static void auBook(User user, long bookId, int num, long cartId) { // 添加或修改要购买的图书
+		System.out.println("b:\t" + bookId + "\tnum:\t" + num + "\tc:\t"
+				+ cartId);
+		if (cartId == 0) {
+			boolean isExistCart = true;
+			for (CartItem it : user.cart) {
+				if (it.book.id == bookId) {
+					it.setNum(it.num + num);
+					isExistCart = false;
+					break;
+				}
+			}
+			if (isExistCart == true) {
+				CartItem ci = new CartItem(Book.findBook_id(bookId));
+				ci.setNum(num);
+				user.cart.add(ci);
+			}
+			user.save();
+		} else {
+			if (num > 0) {
+				for (CartItem it : user.cart) {
+					if (it.id == cartId) {
+						it.setNum(num);
+						it.update();
+						break;
+					}
+				}
+			} else
+				CartItem.find.ref(cartId).delete();
+		}
+	}
+
 	public static void alterBook(User user, long cartId, int num) { // 修改购买数量
 		for (CartItem it : user.cart) {
 			if (it.id == cartId) {
@@ -142,9 +174,8 @@ public class User extends Model {
 	}
 
 	public static void clearBook(long id) { // 清空购物车
-		Ebean.createSqlUpdate(
-	            "delete from cart_item where user_id = :id"
-	        ).setParameter("id", id).execute();
+		Ebean.createSqlUpdate("delete from cart_item where user_id = :id")
+				.setParameter("id", id).execute();
 	}
 
 	public static Long getRole(Long id) {

@@ -5,7 +5,7 @@ updateClick=(e)->
   e.preventDefault()
   @id=$(e.target).parent().attr("data-cart-id")
   @number=$(e.target).parent().prev().val()
-  r=jsRoutes.controllers.Carts.alterCart(@id, @number)
+  r=jsRoutes.controllers.Carts.auCart(0, @number, @id)
   $.ajax
     type:r.type
     url:r.url

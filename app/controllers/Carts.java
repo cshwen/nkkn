@@ -27,14 +27,19 @@ public class Carts extends Controller {
 				.getUser(session().get("username")))));
 	}
 
-	public static Result addCart(Long bookid) {
+	public static Result addCart(Long bookid) { // 添加到购物车（弃）
 		User.addBook(User.getUser(session().get("username")), bookid);
 		return ok("已添加至购物车");
 	}
 
-	public static Result alterCart(Long cartId, int num) {
-		User.alterBook(User.getUser(session().get("username")), cartId, num);
+	public static Result alterCart(Long cartId, int num) { // 修改购物车（弃）
+		User.alterBook(User.getIdUser(session().get("username")), cartId, num);
 		return ok("已修改购物车");
+	}
+
+	public static Result auCart(long bookId, int num, long cartId) { // C/U购物车
+		User.auBook(User.getUser(session().get("username")), bookId, num, cartId);
+		return ok("购物车中图书已修改");
 	}
 
 	public static Result deleteCart(Long cartId) {

@@ -1,7 +1,7 @@
 @(user: User, book: Book, categorys:List[Category])
 
 @javascript =  {<script type="text/javascript" src="@routes.Assets.at("javascripts/book.js")"></script> }
-@main(" - nkkn 网上书城")(sys_case(user))(javascript){
+@main(book.title)(sys_case(user))(javascript){
 <div class="container">
 		<div class="row">
 			<div class="span3">
@@ -58,10 +58,14 @@
 						<div class="span10 text-error"><h4>$&nbsp;@book.price</h4></div>
 					</div>
 					<br>
-					<form>
+					<form data-book-id=@book.id>
 						我要买&nbsp;<input id="buynum" type="number" class="span1" value="1" />&nbsp;件
-						<button class="btn btn-primary">加入购物车</button>
+						<button id="buy" class="btn btn-primary">加入购物车</button>
 					</form>
+					<div  class="row-fluid">
+						<div class="span3"><label>库存：</label></div>
+						<div class="span9 text-info">@book.stock&nbsp;件</div>
+					</div>
 					<a href="#">+ 添加收藏夹</a>
 				</div>
 			</div>
@@ -75,9 +79,39 @@
 
 					<div class="tab-content">
 						<div class="tab-pane active" id="description">
+							<strong>分类：</strong>@book.category.name<br>
+							<strong>豆瓣评分：</strong>@book.score<br>
+							<strong>销量：</strong>@book.sales<br>
+							<strong>页数：</strong>@book.pages<br>
+							<strong>简介：</strong>@book.summary
 							<p>@book.summary</p>
 						</div>
-						<div class="tab-pane" id="reviews">...待定啦</div>
+						<div class="tab-pane" id="reviews">
+							<ul class="media-list">
+							  <li class="media">
+							    <a class="pull-left" href="#">
+							      <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII=" style="width: 64px; height: 64px;">
+							    </a>
+							    <div class="media-body">
+							      <h4 class="media-heading">用户名</h4>
+							      <p>用户评论.</p>
+							    </div>
+								</li>
+							  <li class="media">
+							    <a class="pull-right" href="#">
+										<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII=" style="width: 64px; height: 64px;">
+							    </a>
+							    <div class="media-body">
+										<h4 class="media-heading">用户名</h4>
+										用户评论内容
+							    </div>
+							  </li>
+							</ul>		
+							<div class="well chat-form black">
+								<textarea class="input-block-level" type="text" placeholder="评论..." rows="3"></textarea>
+								<button class="btn btn-warning">发送新评论</button>
+							</div>			
+						</div>
 					</div>
 				</div>
 			</div>			
