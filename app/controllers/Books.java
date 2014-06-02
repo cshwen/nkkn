@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Book;
+import models.Category;
 import models.User;
 import play.data.Form;
 import play.mvc.Controller;
@@ -24,7 +25,7 @@ public class Books extends Controller {
 		}
 		return ok(views.html.book.index.render(
 				User.getUser(session().get("username")),
-				Book.findBook_id(bookid)));
+				Book.findBook_id(bookid),Category.findAll()));
 	}
 
 	public static Result search() {
