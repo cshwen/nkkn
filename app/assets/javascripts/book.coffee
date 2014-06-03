@@ -19,3 +19,17 @@ updateCartView = ()->
       $('#usercart').html(data)
     error:(err)->
       alert 'no'
+
+$(".chat-form button").click (e) ->
+  e.preventDefault()
+  @id=$("#buy").parent().attr("data-book-id")
+  @content=$(e.target).prev().val()
+  r=jsRoutes.controllers.Comments.send(@id,@content)
+  $.ajax
+    type: r.type
+    url: r.url
+    success:(data) ->
+      $(e.target).prev().val("")
+    error:(err)->
+      alert '评论发送失败，请重试！'
+  

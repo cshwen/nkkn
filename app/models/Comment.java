@@ -20,7 +20,15 @@ public class Comment extends Model {
 
 	@ManyToOne
 	public User user;
-
 	@ManyToOne
 	public Book book;
+
+	public static void create(String content, User user, Book book) {
+		Comment ct = new Comment();
+		ct.content = content;
+		ct.time = new Date();
+		ct.user = user;
+		ct.book = book;
+		ct.save();
+	}
 }
