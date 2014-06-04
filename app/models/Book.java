@@ -80,4 +80,7 @@ public class Book extends Model {
 				.findPagingList(pageSize).setFetchAhead(false).getPage(page);
 	}
 
+	public String getLargeImage() {
+		return this.imgPath.replace("small", "large");
+	}
 }

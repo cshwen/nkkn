@@ -18,21 +18,9 @@
 		<div class="span9">
 			<div class="row">
 				<div class="span5">
-					<div id="items-carousel" class="carousel slide mbottom0">
-						<div class="carousel-inner">
-							<div class="active item">
-								<img class="media-object" src="holder.js/470x310" alt="" />
-							</div>
-							<div class="item">
-								<img class="media-object" src="holder.js/470x310" alt="" />
-							</div>
-							<div class="item">
-								<img class="media-object" src="holder.js/470x310" alt="" />
-							</div>
-						</div>
-						<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-						<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-					</div>
+					<a href="#" class="thumbnail">
+	                  <img alt=@book.id src=@book.getLargeImage() style="width: 432px; height: 432px;">
+	                </a>
 				</div>
 
 				<div class="span4">
@@ -87,30 +75,23 @@
 							<p>@book.summary</p>
 						</div>
 						<div class="tab-pane" id="reviews">
-							<ul class="media-list">
-							  <li class="media">
-							    <a class="pull-left" href="#">
-							      <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII=" style="width: 64px; height: 64px;">
-							    </a>
-							    <div class="media-body">
-							      <h4 class="media-heading">用户名</h4>
-							      <p>用户评论.</p>
-							    </div>
-								</li>
-							  <li class="media">
-							    <a class="pull-right" href="#">
-										<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII=" style="width: 64px; height: 64px;">
-							    </a>
-							    <div class="media-body">
-										<h4 class="media-heading">用户名</h4>
-										用户评论内容
-							    </div>
-							  </li>
-							</ul>		
 							<div class="well chat-form black">
 								<textarea class="input-block-level" type="text" placeholder="评论..." rows="3"></textarea>
 								<button class="btn btn-warning">发送新评论</button>
-							</div>			
+							</div>	
+							<ul class="media-list">
+@book.comments.map { comment =>
+<li class="media">
+	<a class="pull-left" href="#">
+		<img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;">
+	</a>
+	<div class="media-body">
+		<h4 class="media-heading">@comment.user.username&nbsp;&nbsp;&nbsp;<small><i class="icon-time"></i>@comment.time.format("yyyy-MM-dd HH:mm:ss")</small></h4>
+		<p>@comment.content</p>
+	</div>
+</li>
+}
+							</ul>				
 						</div>
 					</div>
 				</div>

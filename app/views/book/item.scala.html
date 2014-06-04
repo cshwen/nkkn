@@ -1,7 +1,7 @@
 @(book: Book)
 <li class="span3" >
 	<div class="thumbnail">
-	<img src="@routes.Assets.at("img/Penguins.jpg")" alt="">
+	<img src="@book.imgPath" alt="">
 	<div class="caption">
 		<h4>@book.title</h4>
 		<p><strike>Euro ???</strike>&nbsp;CNY @book.price</p>
