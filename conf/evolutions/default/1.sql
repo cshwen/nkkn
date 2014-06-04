@@ -4,13 +4,13 @@
 # --- !Ups
 
 create table book (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   title                     varchar(255),
   author                    varchar(255),
   publisher                 varchar(255),
   isbn                      char(13),
   price                     char(32),
-  pubtime                   timestamp,
+  pubtime                   datetime,
   pages                     varchar(255),
   summary                   TEXT,
   score                     float,
@@ -22,7 +22,7 @@ create table book (
 ;
 
 create table cart_item (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   user_id                   bigint not null,
   book_id                   bigint,
   num                       integer,
@@ -31,7 +31,7 @@ create table cart_item (
 ;
 
 create table cart_state (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      char(16),
   constraint pk_cart_state primary key (id))
 ;
@@ -43,16 +43,16 @@ create table category (
 ;
 
 create table comment (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   content                   varchar(255),
-  time                      timestamp,
+  time                      datetime,
   user_id                   bigint,
   book_id                   bigint,
   constraint pk_comment primary key (id))
 ;
 
 create table order_item (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   orderof_id                bigint not null,
   book_id                   bigint,
   num                       integer,
@@ -61,50 +61,32 @@ create table order_item (
 ;
 
 create table orderof (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   user_id                   bigint not null,
   record                    char(32),
   sum                       double,
   num                       integer,
-  time                      timestamp,
+  time                      datetime,
   cart_state_id             bigint,
   constraint pk_orderof primary key (id))
 ;
 
 create table role (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      char(16),
   constraint pk_role primary key (id))
 ;
 
 create table user (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   username                  char(32),
   password                  char(32),
   email                     varchar(255),
   phone                     varchar(255),
-  regtime                   timestamp,
+  regtime                   datetime,
   role_id                   bigint,
   constraint pk_user primary key (id))
 ;
-
-create sequence book_seq;
-
-create sequence cart_item_seq;
-
-create sequence cart_state_seq;
-
-create sequence category_seq;
-
-create sequence comment_seq;
-
-create sequence order_item_seq;
-
-create sequence orderof_seq;
-
-create sequence role_seq;
-
-create sequence user_seq;
 
 alter table book add constraint fk_book_category_1 foreign key (category_num) references category (num) on delete restrict on update restrict;
 create index ix_book_category_1 on book (category_num);
@@ -131,43 +113,25 @@ create index ix_user_role_10 on user (role_id);
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists book;
+drop table book;
 
-drop table if exists cart_item;
+drop table cart_item;
 
-drop table if exists cart_state;
+drop table cart_state;
 
-drop table if exists category;
+drop table category;
 
-drop table if exists comment;
+drop table comment;
 
-drop table if exists order_item;
+drop table order_item;
 
-drop table if exists orderof;
+drop table orderof;
 
-drop table if exists role;
+drop table role;
 
-drop table if exists user;
+drop table user;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists book_seq;
-
-drop sequence if exists cart_item_seq;
-
-drop sequence if exists cart_state_seq;
-
-drop sequence if exists category_seq;
-
-drop sequence if exists comment_seq;
-
-drop sequence if exists order_item_seq;
-
-drop sequence if exists orderof_seq;
-
-drop sequence if exists role_seq;
-
-drop sequence if exists user_seq;
+SET FOREIGN_KEY_CHECKS=1;
 

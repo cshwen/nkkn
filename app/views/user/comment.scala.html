@@ -1,0 +1,24 @@
+@(user:User)
+
+@index(user){
+<div class="span9">
+	<div class="widget">
+		<h3 class="page-title form-actions">
+			<i class="icon-th-large"></i> 用户书评
+		</h3>
+@user.comments.map { cmts =>
+<div class="widget blue">
+	<div class="widget-body">
+		<blockquote>
+			<button class="close">&times;</button>
+			<p>@cmts.content</p>
+			<small>@cmts.time.format("yyyy-MM-dd HH:mm:ss")&nbsp;
+			<a href="@routes.Books.view(cmts.book.id)">&nbsp;<i class="icon-book">&nbsp;</i><cite title="book title">@cmts.book.title</cite></a>
+			</small>
+		</blockquote>
+	</div>
+</div>
+}
+	</div>
+</div>
+}

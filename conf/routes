@@ -43,6 +43,7 @@ GET      /user/info                   controllers.Users.info()
 POST     /user/updateInfo             controllers.Users.updateInfo()
 GET      /user/pwd                    controllers.Users.pwd()
 POST     /user/changePwd              controllers.Users.changePwd()
+GET      /user/comment                controllers.Users.comments()
 
 # 用户管理
 GET      /admin/users                 controllers.Users.list(p:Int ?= 0, s ?= "username", o ?= "asc", f ?= "")

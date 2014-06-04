@@ -99,4 +99,9 @@ public class Users extends Controller {
 		flash("success", "该用户已删除");
 		return UserAdminHome;
 	}
+
+	public static Result comments() {
+		return ok(views.html.user.comment.render(User.getIdUser(session().get(
+				"userid"))));
+	}
 }
