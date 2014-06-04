@@ -104,4 +104,9 @@ public class Users extends Controller {
 		return ok(views.html.user.comment.render(User.getIdUser(session().get(
 				"userid"))));
 	}
+
+	public static Result orders() {
+		return ok(views.html.user.order.render(User.getIdUser(session().get(
+				"userid"))));
+	}
 }

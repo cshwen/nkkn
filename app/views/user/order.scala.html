@@ -1,0 +1,62 @@
+@(user:User)
+
+@index(user){
+<div class="span9">
+	<div class="widget">
+		<h3 class="page-title form-actions">
+			<i class="icon-th-large"></i>历史订单
+		</h3>
+
+<div class="accordion" id="user_orders">
+@user.orders.map { order =>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#uesr_orders" href="#collapse@order.id">
+@order.cartState.name match { 
+	case "未付款"=> {
+	<span class="label label-important">未付款</span>
+	}
+	case "已付款" => {
+	<span class="label label-success">已付款</span>
+	}
+	case "已发货" => {
+	<span class="label label-info">已发货</span>
+	}
+} @order.record
+      </a>
+    </div>
+    <div id="collapse@order.id" class="accordion-body collapse closed">
+      <div class="accordion-inner">
+
+		<form class="form-inline" action=@routes.Orderofs.payment(order.id) method="POST">
+			<label>总计：</label><strong>@order.sum</strong>&nbsp;&nbsp;&nbsp;
+			<label>数量：</label><strong>@order.num</strong>&nbsp;&nbsp;&nbsp;
+			<label>下单日期：</label><small>@order.time.format("yyyy-MM-dd HH:mm:ss")</small>&nbsp;&nbsp;&nbsp;
+@if(order.cartState.id==1){		
+	<button type="submit" class="btn btn-small btn-danger">立即支付</button>
+}
+		</form>
+
+		<table class="table table-hover">
+		<thead>
+			<tr><th>书名</th><th>数量</th><th>单价</th><th>总价</th></tr>
+		</thead>
+		<tbody>
+		 @order.orderItem.map { oitem =>
+		<tr>
+			<td>@oitem.book.title</td>
+			<td>@oitem.num</td>
+			<td>@oitem.price</td>
+		 	<td>@{oitem.price*oitem.num}</td>
+		</tr>
+		}
+		</tbody>
+		</table>
+      </div>
+    </div>
+  </div>
+}
+</div>
+	</div>
+</div>
+}
