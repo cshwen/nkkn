@@ -25,6 +25,7 @@ public class CartState extends Model {
 		cs.name = "未付款";
 		return cs;
 	}
+
 	public static CartState getPayment() {
 		CartState cs = new CartState();
 		cs.id = 2L;

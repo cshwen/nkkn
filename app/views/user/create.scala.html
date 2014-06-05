@@ -5,7 +5,7 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
 
-@main("后台管理 - - 图书")(sys_case(user))(javascript) {
+@main("后台管理 - - 用户")(sys_case(user))(javascript) {
 <div class="container">
   <div class="row"><div class="span11">
     <h1>添加新的图书</h1>
@@ -24,7 +24,7 @@
         </fieldset>
         
         <div>
-            <input type="submit" value="添加图书" class="btn btn-primary"> or 
+            <input type="submit" value="添加用户" class="btn btn-primary"> or 
             <a href="@routes.Users.list()" class="btn btn-inverse">返回</a> 
         </div>
     }

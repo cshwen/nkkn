@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Page;
 
 import play.data.format.Formats;
@@ -28,6 +29,9 @@ public class Orderof extends Model {
 	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date time;
 
+	// 多订单一用户
+	@ManyToOne
+	public User user;
 	// 多订单一状态
 	@ManyToOne
 	public CartState cartState;
@@ -54,4 +58,5 @@ public class Orderof extends Model {
 				.orderBy(sortBy + " " + order).fetch("orderItem")
 				.findPagingList(pageSize).setFetchAhead(false).getPage(page);
 	}
+
 }

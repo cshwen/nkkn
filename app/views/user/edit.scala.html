@@ -1,4 +1,4 @@
-@(user: User, id: Long, userFrom: Form[User])
+@(user: User, id: Long, uesrForm: Form[User])
 
 @javascript =  {  }
 
@@ -11,13 +11,13 @@
     <h1>编辑用户信息</h1> 
     @form(routes.Users.update(id)) {
         <fieldset>
-            @inputText(userFrom("id"), '_label -> "ID", 'disabled->"", 'class -> "uneditable-input")
-            @inputText(userFrom("username"), '_label -> "用户名", 'disabled->"", 'class -> "uneditable-input")
-            @inputText(userFrom("email"), '_label -> "邮箱", 'type -> "email")
-            @inputText(userFrom("phone"), '_label -> "手机", 'type -> "tel")
-            @inputText(userFrom("regtime"), '_label -> "注册日期", 'disabled->"", 'class -> "uneditable-input")
+            @inputText(uesrForm("id"), '_label -> "ID", 'disabled->"", 'class -> "uneditable-input")
+            @inputText(uesrForm("username"), '_label -> "用户名", 'disabled->"", 'class -> "uneditable-input")
+            @inputText(uesrForm("email"), '_label -> "邮箱", 'type -> "email")
+            @inputText(uesrForm("phone"), '_label -> "手机", 'type -> "tel")
+            @inputText(uesrForm("regtime"), '_label -> "注册日期", 'disabled->"", 'class -> "uneditable-input")
             @select(
-                userFrom("role.id"), 
+                uesrForm("role.id"), 
                 options(Role.options), 
                 '_label -> "角色", '_default -> "-- 选择用户权限 --",
                 '_showConstraints -> false

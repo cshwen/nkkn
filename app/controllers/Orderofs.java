@@ -1,7 +1,13 @@
 package controllers;
 
+import static play.data.Form.form;
+
+import com.avaje.ebean.Ebean;
+
+import models.Book;
 import models.Orderof;
 import models.User;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -17,5 +23,27 @@ public class Orderofs extends Controller {
 				User.getIdUser(session().get("userid")),
 				Orderof.page(page, 10, sortBy, order, filter), sortBy, order,
 				filter));
+	}
+
+	public static Result edit(Long id) {
+		Form<Orderof> orderFrom = form(Orderof.class).fill(
+				Orderof.find.byId(id));
+		return ok(views.html.order.edit.render(
+				User.getUser(session().get("username")), id, orderFrom,Orderof.find.byId(id)));
+	}
+
+	public static Result update(Long id) {
+		Form<Orderof> orderFrom = form(Orderof.class).bindFromRequest();
+		if (orderFrom.hasErrors()) {
+			return badRequest(views.html.order.edit.render(
+					User.getIdUser(session().get("userid")), id, orderFrom,Orderof.find.byId(id)));
+		}
+		Ebean.createSqlUpdate(
+				"update orderof set cart_state_id = :state where id = :id")
+				.setParameter("id", id)
+				.setParameter("state", orderFrom.get().cartState.id).execute();
+		flash("success", "Orderof " + orderFrom.get().record
+				+ " has been updated");
+		return redirect(routes.Orderofs.list(0, "id", "asc", ""));
 	}
 }

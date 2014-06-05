@@ -44,7 +44,7 @@ POST     /user/updateInfo             controllers.Users.updateInfo()
 GET      /user/pwd                    controllers.Users.pwd()
 POST     /user/changePwd              controllers.Users.changePwd()
 GET      /user/comment                controllers.Users.comments()
-GET      /user/orders                controllers.Users.orders()
+GET      /user/orders                 controllers.Users.orders()
 
 # 用户管理
 GET      /admin/users                 controllers.Users.list(p:Int ?= 0, s ?= "username", o ?= "asc", f ?= "")
@@ -58,6 +58,8 @@ POST     /admin/users/:id/delete      controllers.Users.delete(id:Long)
 # 订单管理
 GET      /admin/orders                controllers.Orderofs.list(p:Int ?= 0, s ?= "id", o ?= "asc", f ?= "")
 POST     /orders/payment/:id          controllers.Orderofs.payment(id: Long)
+GET      /admin/orders/:id            controllers.Orderofs.edit(id:Long)
+POST     /admin/orders/:id            controllers.Orderofs.update(id:Long)
 
 # 评论
 POST     /comment                     controllers.Comments.send(bookId: Long, content)

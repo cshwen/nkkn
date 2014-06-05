@@ -62,11 +62,11 @@ create table order_item (
 
 create table orderof (
   id                        bigint auto_increment not null,
-  user_id                   bigint not null,
   record                    char(32),
   sum                       double,
   num                       integer,
   time                      datetime,
+  user_id                   bigint,
   cart_state_id             bigint,
   constraint pk_orderof primary key (id))
 ;

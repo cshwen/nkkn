@@ -19,7 +19,7 @@
             order = "asc"
         }
     }
-    routes.Users.list(newPage, sortBy, order, currentFilter)
+    routes.Orderofs.list(newPage, sortBy, order, currentFilter)
 }
 
 @header(key:String, title:String) = {
@@ -48,8 +48,10 @@
 					@header("id", "ID")
                     @header("record", "订单号")
                     @header("cartState", "状态")
+                    <th>操作</th>
                     @header("sum", "总计")
                     @header("num", "数量")
+                    @header("user.username", "客户")
                     @header("time", "下单时间")
                 </tr>
             </thead>
@@ -57,17 +59,27 @@
 
                 @for(order <- currentPage.getList) {
                     <tr>
-                        <td><a href="#">@order.id</a></td>
-                        <td><a href="#">@order.record</a></td>
+                        <td><a href=@routes.Orderofs.edit(order.id)>@order.id</a></td>
+                        <td>
+                        <a href=@routes.Orderofs.edit(order.id)>@order.record</a>
+                        <div id="cardxx@order.id" class="collapse"><ul>
+                        @order.orderItem.map { orderItem =>
+                        <li>[@orderItem.book.id]&nbsp;@orderItem.book.title&nbsp;*&nbsp;@orderItem.num</li>
+                        }
+						</ul></div>
+                        </td>
                         <td>
                             @if(order.cartState == null) {
                                 <em>-</em>
                             } else { @order.cartState.name }
                         </td>
+                        <td><button class="btn btn-mini btn-info" type="button" data-toggle="collapse" data-target="#cardxx@order.id"><i class="icon-list-alt"></i>&nbsp;订单图书列表</button>
+                        <a href=@routes.Orderofs.edit(order.id) class="btn-mini btn btn-success"><i class="icon-edit"></i>&nbsp;查看</a></td>
                         <td>@order.sum</td>
                         <td>@order.num</td>
+                        <td>@order.user.username</td>
                         <td>@order.time.format("yyyy-MM-dd HH:mm:ss")</td>
-                    </tr> 
+                    </tr>
 				}
 			</tbody>
 		</table>
@@ -80,7 +92,7 @@
                     </li>
                 } else {
                     <li class="prev disabled">
-                        <a>&larr; Previous</a>
+                        <a>&larr; 上一页</a>
                     </li>
                 }
                 <li class="current">
@@ -92,7 +104,7 @@
                     </li>
                 } else {
                     <li class="next disabled">
-                        <a>Next &rarr;</a>
+                        <a>下一页 &rarr;</a>
                     </li>
                 }
             </ul>

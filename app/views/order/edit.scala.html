@@ -1,0 +1,54 @@
+@(user: User, id: Long, orderForm: Form[Orderof], orders: Orderof)
+
+@javascript =  {  }
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main("后台管理 - - 订单管理")(sys_case(user))(javascript) {
+<div class="container">
+  <div class="row">
+    <h1>订单详情信息</h1> 
+    <div class="span5">
+    @form(routes.Orderofs.update(id)) {
+        <fieldset>
+            @inputText(orderForm("id"), '_label -> "ID", 'disabled->"", 'class -> "uneditable-input")
+            @inputText(orderForm("record"), '_label -> "订单编号", 'disabled->"", 'class -> "uneditable-input input-xlarge")
+            @inputText(orderForm("num"), '_label -> "数量", 'disabled->"", 'class -> "uneditable-input",'type->"number")
+            @inputText(orderForm("sum"), '_label -> "总计", 'disabled->"", 'class -> "uneditable-input",'type->"number")
+            @inputText(orderForm("user.username"), '_label -> "客户", 'disabled->"", 'class -> "uneditable-input")
+            @inputText(orderForm("time"), '_label -> "下单日期", 'disabled->"", 'class -> "uneditable-input")
+            @select(
+                orderForm("cartState.id"), 
+                options(CartState.options), 
+                '_label -> "订单状态", '_default -> "-- 选择订单状态 --",
+                '_showConstraints -> false
+            )
+        </fieldset>
+        
+        <div>
+            <input type="submit" value="保存订单" class="btn btn-primary"> or 
+            <a href="@routes.Orderofs.list()" class="btn btn-inverse">返回</a> 
+        </div>
+    }
+  </div>
+  <div class="span7">
+  <table class="table table-bordered table-condensed table-hover">
+  <caption><label>订单图书列表</label></caption>
+  <thead>
+		<tr><th>书号</th><th>书名</th><th>数量</th><th>单价</th><th>总价</th></tr>
+	</thead>
+		<tbody>
+		 @orders.orderItem.map { oitem =>
+		<tr>
+			<td>@oitem.book.id</td>
+			<td>@oitem.book.title</td>
+			<td>@oitem.num</td>
+			<td>@oitem.price</td>
+		 	<td>@{oitem.price*oitem.num}</td>
+		</tr>
+		}
+  </table>
+	</div></div>
+</div>
+}
