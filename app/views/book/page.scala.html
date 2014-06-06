@@ -1,0 +1,21 @@
+@(page:Integer, pages:List[Integer], keyword:String)
+
+<div class="pagination pagination-large pagination-centered">
+	<ul>
+		<li @if(page<=1 ) {class="disabled"}><a href="@routes.Books.osearch(keyword,page-1)"><span>上一页</span></a></li>
+@pages.map { pg =>
+	<li @if(page ==pg ) {class="disabled"}><a href="@routes.Books.osearch(keyword,pg)">@pg</a></li>
+}
+		<li @{var gins=false;var shuchu="";
+			for(pg<-pages){
+			if(page+1==pg) 
+			gins=true;
+			}
+			if(gins==false)
+				shuchu="class=disabled";
+			shuchu;
+			 }>
+		<a href=@routes.Books.osearch(keyword,page+1) ><span>下一页</span></a></li>
+		
+	</ul>
+</div>

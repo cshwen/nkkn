@@ -16,6 +16,7 @@ import com.avaje.ebean.Page;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import utils.BookList;
 import utils.Isbn;
 
 @Entity
@@ -62,15 +63,26 @@ public class Book extends Model {
 		return find.ref(bookid);
 	}
 
-	public static List<Book> search(String str) { // 关键字找书
+	public static BookList search(String str, int page_now) { // 关键字找书
 		if (Isbn.checkout13(str) || Isbn.checkout10(str)) {
-			return find.where().eq("isbn", str).findList();
+			BookList blist = new BookList();
+			blist.getPageNum(find.where().eq("isbn", str).findList().size());
+			blist.books = find.where().eq("isbn", str).findList();
+			return blist;
 		}
-		return find
+
+		BookList blist = new BookList();
+		blist.getPageNum(find
 				.where()
 				.or(com.avaje.ebean.Expr.like("title", "%" + str + "%"),
 						com.avaje.ebean.Expr.like("author", "%" + str + "%"))
-				.findPagingList(21).getPage(0).getList();
+				.findList().size());
+		blist.books = find
+				.where()
+				.or(com.avaje.ebean.Expr.like("title", "%" + str + "%"),
+						com.avaje.ebean.Expr.like("author", "%" + str + "%"))
+				.findPagingList(20).getPage(page_now).getList();
+		return blist;
 	}
 
 	public static Page<Book> page(int page, int pageSize, String sortBy,

@@ -6,6 +6,7 @@ import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.BookList;
 import views.html.*;
 import static play.data.Form.*;
 
@@ -25,12 +26,23 @@ public class Books extends Controller {
 		}
 		return ok(views.html.book.index.render(
 				User.getUser(session().get("username")),
-				Book.findBook_id(bookid),Category.findAll()));
+				Book.findBook_id(bookid), Category.findAll()));
 	}
 
-	public static Result search() {
-		String keyword = form().bindFromRequest().get("wd");
-		return ok(views.html.book.search.render(Book.search(keyword)));
+	public static Result search(int page_now) {
+		String keyword = form().bindFromRequest().get("wd").trim();
+		BookList bl = Book.search(keyword, page_now - 1);
+		return ok(views.html.book.search.render("搜索：" + keyword,
+				User.getUser(session().get("username")), Category.findAll(),
+				keyword, page_now, bl.getPages(page_now), bl.books));
+	}
+
+	public static Result osearch(String keyword, int page_now) {
+		System.out.println("test:\t" + keyword);
+		BookList bl = Book.search(keyword, page_now - 1);
+		return ok(views.html.book.search.render("搜索：" + keyword,
+				User.getUser(session().get("username")), Category.findAll(),
+				keyword, page_now, bl.getPages(page_now), bl.books));
 	}
 
 	public static Result list(int page, String sortBy, String order,

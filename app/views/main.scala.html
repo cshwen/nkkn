@@ -34,7 +34,7 @@
 						<li class=""><a href="#review">书评</a></li>
 						<li class=""><a href="#about">关于</a></li>
 					</ul>
-					@helper.form(action=routes.Books.search, 'class -> "navbar-form form-search pull-left") {
+					@helper.form(action=routes.Books.search(), 'class -> "navbar-form form-search pull-left") {
 						<div class="input-append">
 						  <input class="search-query span3" name="wd" type="text" placeholder="书名、作者、ISBN" class="input-xlarge search-query">
 						  <button class="btn" type="submit"><i class="icon-search"></i></button>
@@ -59,7 +59,7 @@
 					<p>&copy; Copyright 2014 .&nbsp;<a href="http://blog.cshwen.com">CShWen</a>&nbsp;&amp;&nbsp;. <a href="#">All Rights Reserved</a></p>
 				</div>
 				<div class="span6">
-					<a class="pull-right" href="http://www.responsivewebmobile.com" target="_blank">待定链接</a>
+					<a class="pull-right" href="https://github.com/CShWen/nkkn" target="_blank">项目源代码</a>
 				</div>
 			</div>
 		</div>

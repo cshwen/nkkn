@@ -1,3 +1,37 @@
-@(books: List[Book])
+@(message: String, user: User, categorys:List[Category], keyword:String, page_now:Integer, pages:List[Integer],  books: List[Book])
 
-@views.html.book.books(books)
+@javascript = {<script type="text/javascript" src="@routes.Assets.at("javascripts/home.js")"></script> }
+@main(message)(sys_case(user))(javascript) {
+        
+<div class="container">
+		<div class="row">
+			<div class="span3">
+				@if(user != null) {
+					<div id="usercart" class="well">
+					@views.html.cart.view(user.cart)
+					</div>
+				}
+				<div class="well">
+					@views.html.tab(categorys, "")
+				</div>
+			</div>
+
+			<div class="span9">
+				<ul class="thumbnails">
+					@views.html.book.books(books)
+				</ul>
+				
+				@views.html.book.page(page_now, pages, keyword)
+
+			</div>
+		</div>
+	</div>
+	
+<div id="bookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  style="top:38%;">
+  <div class="modal-body text-center">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <p>???</p>
+    <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">关闭</button>
+  </div>
+</div>
+}

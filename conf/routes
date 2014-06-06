@@ -15,7 +15,8 @@ PUT      /login                       controllers.Application.isExistUser(userna
 
 # 图书
 GET      /books/:bookid               controllers.Books.view(bookid: Long)
-GET      /search/                     controllers.Books.search()
+GET      /search/                     controllers.Books.search(page_now: Int?=1)
+GET      /osearch/                     controllers.Books.osearch(keyword:String, page_now: Int?=1)
 
 # 购物车
 GET      /cart                        controllers.Carts.index()
