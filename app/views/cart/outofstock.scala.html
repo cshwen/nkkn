@@ -1,0 +1,14 @@
+@(user: User, errormsg:String) @javascript = { }
+
+@main("下单失败")(sys_case(user))(javascript) {
+<div class="container">
+	<div class="row well" style="max-width: 400px; margin: 0 auto 10px;">
+		<div class="row-fluid">
+			<p>@errormsg</p>
+		</div>
+		<a href=@routes.Carts.index class="btn btn-large btn-block">修改购物车</a>
+		<a href=@routes.Users.info class="btn btn-large btn-block">返回个人中心</a>
+		<a href="/" class="btn btn-large btn-block">返回</a>
+	</div>
+</div>
+}

@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Date;
 import com.avaje.ebean.Ebean;
+
+import models.Book;
 import models.CartItem;
 import models.CartState;
 import models.Category;
@@ -38,7 +40,8 @@ public class Carts extends Controller {
 	}
 
 	public static Result auCart(long bookId, int num, long cartId) { // C/U购物车
-		User.auBook(User.getUser(session().get("username")), bookId, num, cartId);
+		User.auBook(User.getUser(session().get("username")), bookId, num,
+				cartId);
 		return ok("购物车中图书已修改");
 	}
 
@@ -72,6 +75,7 @@ public class Carts extends Controller {
 			int num = 0;
 			Orderof orders = new Orderof();
 			for (CartItem cartItem : user.cart) {
+				Book.sell(cartItem.book.id, cartItem.num);
 				OrderItem orderItem = new OrderItem(cartItem);
 				sum += orderItem.price;
 				num += orderItem.num;
@@ -86,6 +90,10 @@ public class Carts extends Controller {
 			Ebean.save(user);
 			clearCart();
 			Ebean.commitTransaction();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ok(views.html.cart.outofstock.render(
+					User.getIdUser(session().get("userid")), e.getMessage()));
 		} finally {
 			Ebean.endTransaction();
 		}

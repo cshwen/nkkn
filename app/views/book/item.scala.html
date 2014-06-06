@@ -1,10 +1,10 @@
 @(book: Book)
 <li class="span3" >
-	<div class="thumbnail">
+	<div class="thumbnail"   style="height:234px">
 	<img src="@book.imgPath" alt="">
 	<div class="caption">
-		<h4>@book.title</h4>
-		<p><strike>Euro ???</strike>&nbsp;CNY @book.price</p>
+		<h4>@book.getUITitle</h4>
+		<p class="text-error">@book.price &nbsp;<strike class="muted">@book.getFakePrice</strike> </p>
 		<a class="btn btn-primary" href="@routes.Books.view(book.id)">查看</a>
 		<a id="addBook" class="btn btn-success" href="#" data-toggle="modal" data-target="#bookModal" data-book-id="@book.id"><i class="icon-shopping-cart" ></i>&nbsp;购买</a>
 		</div>

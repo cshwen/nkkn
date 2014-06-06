@@ -1,8 +1,10 @@
 package models;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.OneToMany;
 
 import com.avaje.ebean.Page;
 
+import play.api.templates.Html;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -94,5 +97,31 @@ public class Book extends Model {
 
 	public String getLargeImage() {
 		return this.imgPath.replace("small", "large");
+	}
+
+	public static void sell(long bookid, int num) throws Exception {
+		Book book = find.ref(bookid);
+		if (book.stock < num)
+			throw new Exception("图书《" + book.title + "》\t库存不足，请重新确认！");
+		book.sales += num;
+		book.stock -= num;
+		book.save();
+	}
+
+	public String getUITitle() { // 缩短书名
+		int len = this.title.length();
+		if (len <= 13)
+			return this.title;
+		else if (len >= 25)
+			return this.title.substring(0, 25) + "...";
+		else
+			return this.title;
+	}
+
+	public String getFakePrice() {
+		Double pc = Double.valueOf(this.price.substring(3));
+		Double sc = pc * this.score / 100;
+		Double ac = Math.random() * this.sales % 5;
+		return "￥" + new DecimalFormat("#.00").format(pc + sc + ac);
 	}
 }
