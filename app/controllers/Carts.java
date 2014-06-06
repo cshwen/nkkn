@@ -35,7 +35,7 @@ public class Carts extends Controller {
 	}
 
 	public static Result alterCart(Long cartId, int num) { // 修改购物车（弃）
-		User.alterBook(User.getIdUser(session().get("username")), cartId, num);
+		User.alterBook(User.getIdUser(session().get("userid")), cartId, num);
 		return ok("已修改购物车");
 	}
 

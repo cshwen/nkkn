@@ -121,4 +121,8 @@ public class Application extends Controller {
 				controllers.routes.javascript.Comments.send()
 		));
 	}
+	
+	public static Result help() {
+		return ok(help.render(User.getIdUser(session().get("userid"))));
+	}
 }

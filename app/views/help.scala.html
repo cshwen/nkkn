@@ -1,0 +1,77 @@
+@(user: User)
+
+@javascript =  {}
+@main("帮助")(sys_case(user))(javascript) {
+<div class="container">
+	<div class="row">
+	<div class="span3">
+	</div>
+	<div class="span9"><div class="widget"><div class="widget-content">
+		<h3 class="text-warning">nkkn网上书店帮助中心</h3>
+							
+		<div class="faq-container">
+			<div class="faq-toc">
+				<ol>
+					<li>1. <a href="#faq-1">如何登录呢？</a></li>
+					<li>2. <a href="#faq-2">如何注册呢？</a></li>
+					<li>3. <a href="#faq-3">如何购买图书呢？</a></li>
+					<li>4. <a href="#faq-4">如何搜索图书呢？</a></li>
+					<li>5. <a href="#faq-5">如何修改我的个人信息？</a></li>
+					<li>6. <a href="#faq-6">如何修改我的用户密码？</a></li>
+					<li>7. <a href="#faq-7">如何对图书进行评论？</a></li>
+				</ol>
+			</div>
+			<ol class="faq-list">
+	
+				<li id="faq-1">
+				<div class="faq-icon"><div class="faq-number">1</div></div>
+				<div class="faq-text">
+					<h4>如何登录呢？</h4>
+					<p>首先您得注册一个帐号，才能进行用户登录。</p>					
+				</div>
+				</li>
+							
+				<li id="faq-2">
+				<div class="faq-icon"><div class="faq-number">2</div></div><div class="faq-text">
+				<h4>如何注册呢？</h4>
+				<p>注册用户只需要在注册页面填写您想要注册的用户名和密码，成功注册后便可使用服务。</p>	
+				</div></li>
+							
+				<li id="faq-3">
+				<div class="faq-icon"><div class="faq-number">3</div></div><div class="faq-text">
+				<h4>如何购买图书呢？</h4>
+				<p>首先您需要登录用户，然后添加您要选购的图书到购物车，然后再进行下单和付款，运营人员会发货给您的。</p>	
+				</div></li>
+							
+				<li id="faq-4">
+				<div class="faq-icon"><div class="faq-number">4</div></div><div class="faq-text">
+				<h4>如何搜索图书呢?</h4>
+				<p>在各个页面的正上方有个搜索框，您只需要输入您要搜索的图书关键字或是ISBN，点击搜索按钮，便会显示搜索的图书结果。</p>	
+				</div></li>
+							
+				<li id="faq-5">
+				<div class="faq-icon"><div class="faq-number">5</div></div><div class="faq-text">
+				<h4>如何修改我的个人信息？</h4>
+				<p>用户登录后，在右上角点击您的用户名，进入个人中心，映入屏幕的便是您当前的个人信息，可进行修改，记得保存哦。</p>	
+				</div></li>
+							
+				<li id="faq-6">
+				<div class="faq-icon"><div class="faq-number">6</div></div><div class="faq-text">
+				<h4>如何修改我的用户密码？</h4>
+				<p>用户登录后，在右上角点击您的用户名，进入个人中心，在靠左的导航栏选择“修改密码”，进行修改保存。</p>	
+				</div></li>
+							
+				<li id="faq-7">
+				<div class="faq-icon"><div class="faq-number">7</div></div><div class="faq-text">
+				<h4>如何对图书进行评论？</h4>
+				<p>用户登录后，点击某图书进行详细页面，下拉看见评论列表和一评论输入框，可在此进行评论。</p>	
+				</div></li>
+							
+				<div class="faq-empty">Nothing Found</div>
+			</ol>
+		</div>
+	</div></div></div>
+
+	</div>
+</div>
+}

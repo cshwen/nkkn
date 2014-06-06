@@ -6,6 +6,7 @@
 GET      /                            controllers.Application.index()
 GET      /page/:page                  controllers.Application.page(page: Integer)
 GET      /tab/:sign/:page             controllers.Application.tab(sign:String, page: Integer)
+GET      /help                        controllers.Application.help()
 
 GET      /login                       controllers.Application.login()
 POST     /login                       controllers.Application.authenticate()
@@ -16,7 +17,7 @@ PUT      /login                       controllers.Application.isExistUser(userna
 # 图书
 GET      /books/:bookid               controllers.Books.view(bookid: Long)
 GET      /search/                     controllers.Books.search(page_now: Int?=1)
-GET      /osearch/                     controllers.Books.osearch(keyword:String, page_now: Int?=1)
+GET      /osearch/                    controllers.Books.osearch(keyword:String, page_now: Int?=1)
 
 # 购物车
 GET      /cart                        controllers.Carts.index()
