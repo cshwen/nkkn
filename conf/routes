@@ -64,7 +64,10 @@ GET      /admin/orders/:id            controllers.Orderofs.edit(id:Long)
 POST     /admin/orders/:id            controllers.Orderofs.update(id:Long)
 
 # 评论
-POST     /comment                     controllers.Comments.send(bookId: Long, content)
+GET      /admin/comment               controllers.Comments.list(p:Int ?= 0, s ?= "id", o ?= "asc", f ?= "")
+GET      /admin/comment/del           controllers.Comments.delete(id:Long)
+GET      /comment/del                 controllers.Comments.del(id:Long)
+POST     /comment                     controllers.Comments.send(bookId: Long, content:String)
 
 # Javascript routing
 GET      /assets/javascripts/routes   controllers.Application.javascriptRoutes()

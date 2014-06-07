@@ -30,6 +30,7 @@ $(".chat-form button").click (e) ->
     url: r.url
     success:(data) ->
       $(e.target).prev().val("")
+      window.location.reload(false)
     error:(err)->
       alert '评论发送失败，请重试！'
   

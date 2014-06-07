@@ -5,9 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.avaje.ebean.Page;
+
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 
 @Entity
 public class Comment extends Model {
@@ -30,5 +33,15 @@ public class Comment extends Model {
 		ct.user = user;
 		ct.book = book;
 		ct.save();
+	}
+
+	public static Finder<Long, Comment> find = new Finder<Long, Comment>(
+			Long.class, Comment.class);
+
+	public static Page<Comment> page(int page, int pageSize, String sortBy,
+			String order, String filter) { // admin显示
+		return find.where().ilike("content", "%" + filter + "%")
+				.orderBy(sortBy + " " + order).findPagingList(pageSize)
+				.getPage(page);
 	}
 }

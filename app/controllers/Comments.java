@@ -12,4 +12,22 @@ public class Comments extends Controller {
 				Book.find.ref(bookId));
 		return ok();
 	}
+
+	public static Result list(int page, String sortBy, String order,
+			String filter) {
+		return ok(views.html.comment.list.render(
+				User.getUser(session().get("username")),
+				Comment.page(page, 10, sortBy, order, filter), sortBy, order,
+				filter));
+	}
+
+	public static Result del(Long id) {
+		Comment.find.ref(id).delete();
+		return redirect(routes.Users.comments());
+	}
+
+	public static Result delete(Long id) {
+		Comment.find.ref(id).delete();
+		return redirect(routes.Comments.list(0, "id", "asc", ""));
+	}
 }

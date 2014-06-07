@@ -1,0 +1,103 @@
+@(user: User, currentPage: com.avaje.ebean.Page[Comment], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@javascript =  {}
+
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    routes.Comments.list(newPage, sortBy, order, currentFilter)
+}
+
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main("后台管理 -- 评论")(sys_case(user))(javascript) {
+	<ul class="inline">
+		<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li><form class="form-search" action="@link(0, "title")" method="GET">
+            <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="输入关键字...">
+            <input type="submit" id="searchsubmit" value="查找" class="btn btn-primary">
+		</form></li>
+	</ul>
+	
+    @if(currentPage.getTotalRowCount == 0) {
+        <div class="well">
+            <em>查找不到记录！</em>
+        </div>
+    } else {
+		<table class="computers table table-bordered table-hover table-condensed">
+			<thead>
+                <tr>
+               		@header("user.username", "用户")
+                    @header("book.title", "图书")
+                    <th>操作</th>
+                    @header("content", "评论内容")
+                    @header("time", "时间")
+                </tr>
+            </thead>
+            <tbody>
+
+                @for(comment <- currentPage.getList) {
+                    <tr>
+                        <td>@comment.user.username</td>
+                        <td><a href=@routes.Books.view(comment.book.id)>@comment.book.title</a></td>
+                        <td><a href="#"><i class="icon-edit"></i></a>&nbsp;<a href="@routes.Comments.delete(comment.id)"><i class="icon-trash"></i></a></td>
+                        <td>
+                            @if(comment.content == null) {
+                                <em>-</em>
+                            } else {  @comment.content  }
+                        </td>
+                        <td>
+                            @if(comment.time == null) {
+                                <em>-</em>
+                            } else { @comment.time.format("yyyy-MM-dd HH:mm:ss") }
+                        </td>
+                    </tr> 
+				}
+			</tbody>
+		</table>
+		
+        <div class="pagination pagination-large pagination-centered">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @currentPage.getDisplayXtoYofZ(" to "," of ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>	
+	}
+}
