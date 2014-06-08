@@ -6,6 +6,7 @@ import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import utils.BookList;
 import views.html.*;
 import static play.data.Form.*;
@@ -16,8 +17,6 @@ public class Books extends Controller {
 
 	public static Result index() {
 		return TODO;
-		// return ok(index.render("Your new application is ready.",
-		// User.getUser(session().get("username"))));
 	}
 
 	public static Result view(Long bookid) {
@@ -45,6 +44,7 @@ public class Books extends Controller {
 				keyword, page_now, bl.getPages(page_now), bl.books));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result list(int page, String sortBy, String order,
 			String filter) {
 		return ok(views.html.book.list.render(
@@ -53,12 +53,14 @@ public class Books extends Controller {
 				filter));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result create() {
 		Form<Book> bookFrom = form(Book.class);
 		return ok(views.html.book.create.render(
 				User.getUser(session().get("username")), bookFrom));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result save() {
 		Form<Book> bookFrom = form(Book.class).bindFromRequest();
 		if (bookFrom.hasErrors()) {
@@ -70,12 +72,14 @@ public class Books extends Controller {
 		return BookAdminHome;
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result edit(Long id) {
 		Form<Book> bookFrom = form(Book.class).fill(Book.find.byId(id));
 		return ok(views.html.book.edit.render(
 				User.getUser(session().get("username")), id, bookFrom));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result update(Long id) {
 		Form<Book> bookFrom = form(Book.class).bindFromRequest();
 		if (bookFrom.hasErrors()) {
@@ -87,6 +91,7 @@ public class Books extends Controller {
 		return BookAdminHome;
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result delete(Long id) {
 		Book.find.ref(id).delete();
 		flash("success", "该图书已删除");

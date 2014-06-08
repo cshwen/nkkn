@@ -7,7 +7,9 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
+@Security.Authenticated(Secured.class)
 public class Users extends Controller {
 	public static Result UserAdminHome = redirect(routes.Users.list(0,
 			"username", "asc", ""));

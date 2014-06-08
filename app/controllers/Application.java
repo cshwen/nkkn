@@ -123,6 +123,6 @@ public class Application extends Controller {
 	}
 	
 	public static Result help() {
-		return ok(help.render(User.getIdUser(session().get("userid"))));
+		return ok(help.render(User.getUser(session().get("username"))));
 	}
 }

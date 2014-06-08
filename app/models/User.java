@@ -126,8 +126,6 @@ public class User extends Model {
 	}
 
 	public static void auBook(User user, long bookId, int num, long cartId) { // 添加或修改要购买的图书
-		System.out.println("b:\t" + bookId + "\tnum:\t" + num + "\tc:\t"
-				+ cartId);
 		if (cartId == 0) {
 			boolean isExistCart = true;
 			for (CartItem it : user.cart) {

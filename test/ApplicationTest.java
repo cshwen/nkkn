@@ -4,11 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
+import controllers.Application.Login;
+import controllers.Application.Register;
+
 import org.junit.*;
 
 import play.mvc.*;
 import play.test.*;
 import play.data.DynamicForm;
+import play.data.Form;
 import play.data.validation.ValidationError;
 import play.data.validation.Constraints.RequiredValidator;
 import play.i18n.Lang;
@@ -33,11 +38,5 @@ public class ApplicationTest {
         assertThat(a).isEqualTo(2);
     }
 
-    @Test
-    public void renderTemplate() {
-//        Content html = views.html.index.render("Your new application is ready.");
-//        assertThat(contentType(html)).isEqualTo("text/html");
-//        assertThat(contentAsString(html)).contains("Your new application is ready.");
-    }
 
 }

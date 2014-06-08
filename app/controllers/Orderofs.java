@@ -10,7 +10,9 @@ import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
+@Security.Authenticated(Secured.class)
 public class Orderofs extends Controller {
 	public static Result payment(Long id) {
 		Orderof.setPayment(id);
