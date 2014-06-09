@@ -1,6 +1,10 @@
-This is your new Play application
+这是我做的本学期软件测试课程的项目，采用playFramework框架，题目：网上书店 
 =====================================
 
 This file will be packaged with your application, when using `play dist`.
 
-git dev branchaaa
+1.效果可能不是很好，但基本实现了购书一整套流程； 
+2.下载下来只需要play run即可运行; 
+3.数据库有空再补上，图片用的是之前跟lowstz合作的图书馆图书图片，因此在这里没有再去搞; 
+4.写的测试运行只需要play test(全部测试); 
+5.安全认证没有细致做，角色权限不是很好； 
