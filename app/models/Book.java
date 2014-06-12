@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Page;
 
 import play.api.templates.Html;
@@ -56,6 +57,11 @@ public class Book extends Model {
 
 	public static List<Book> findAll() { // 所有书
 		return find.all();
+	}
+
+	public static List<Book> findRandBooks() { // 随机取书
+		return find.where().orderBy("rand()").findPagingList(24).getPage(0)
+				.getList();
 	}
 
 	public static List<Book> findPageBooks(int pagesize, int page) { // 分页找书
@@ -124,4 +130,10 @@ public class Book extends Model {
 		Double ac = Math.random() * this.sales % 5;
 		return "￥" + new DecimalFormat("#.00").format(pc + sc + ac);
 	}
+
+	public static List<Book> findSalesRank() { // 销售排行
+		return find.where().orderBy("sales desc").findPagingList(20).getPage(0)
+				.getList();
+	}
+
 }

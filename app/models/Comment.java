@@ -1,6 +1,8 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -43,5 +45,10 @@ public class Comment extends Model {
 		return find.where().ilike("content", "%" + filter + "%")
 				.orderBy(sortBy + " " + order).findPagingList(pageSize)
 				.getPage(page);
+	}
+
+	public static List<Comment> findLatest() {
+		return find.where().orderBy("time desc").findPagingList(20).getPage(0)
+				.getList();
 	}
 }

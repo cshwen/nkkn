@@ -1,0 +1,21 @@
+@(user: User, coms:List[Comment])
+
+@javascript =  {}
+@main("实时书评")(sys_case(user))(javascript) {
+<div class="container">
+  <div class="row">
+@for(com <- coms) {
+<div class="media">
+<div class="media-body">
+	<h4 class="media-heading">@com.book.title</h4>
+	<blockquote class="pull-right">
+	  <small>@com.user.username</small>
+	  <small>@com.time.format("yyyy-MM-dd HH:mm:ss")</small>
+	</blockquote>
+	@com.content
+</div>
+</div>
+} 
+  </div>
+</div>
+}

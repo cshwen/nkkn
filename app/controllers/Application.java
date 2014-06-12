@@ -2,6 +2,7 @@ package controllers;
 
 import models.Book;
 import models.Category;
+import models.Comment;
 import models.User;
 import play.*;
 import play.data.Form;
@@ -13,7 +14,7 @@ public class Application extends Controller {
 	public static Result index() { // 首页待定
 		return ok(index.render("欢迎光临 ",
 				User.getUser(session().get("username")), Category.findAll(),
-				Book.findPageBooks(21, 0)));
+				Book.findRandBooks()));
 	}
 
 	public static Result page(int page) { // 分页待定
@@ -118,11 +119,20 @@ public class Application extends Controller {
 				controllers.routes.javascript.Carts.view(),
 				controllers.routes.javascript.Carts.refresh(),
 				controllers.routes.javascript.Carts.clearCart(),
-				controllers.routes.javascript.Comments.send()
-		));
+				controllers.routes.javascript.Comments.send()));
 	}
-	
+
 	public static Result help() {
 		return ok(help.render(User.getUser(session().get("username"))));
+	}
+
+	public static Result rank() {
+		return ok(rank.render(User.getUser(session().get("username")),
+				Book.findSalesRank()));
+	}
+
+	public static Result ncomment() {
+		return ok(ncomment.render(User.getUser(session().get("username")),
+				Comment.findLatest()));
 	}
 }

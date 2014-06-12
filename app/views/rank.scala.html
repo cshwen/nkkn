@@ -1,0 +1,25 @@
+@(user: User, books:List[Book])
+
+@import java.math.BigInteger; var i=1;
+@javascript =  {}
+@main("排行榜")(sys_case(user))(javascript) {
+<div class="container">
+  <div class="row well" style="max-width: 400px; margin: 0 auto 10px;">
+	<table class="table">
+	<h3 class="text-success">销售排行榜</h3>
+	  <thead>
+		<tr><th><i class="icon-star"></i></th><th>书名</th><th>销量</th></tr>
+	  </thead>
+	<tbody>
+	@for(book <- books) {
+	<tr>
+		<td>@i</td>@{i=i+1}
+		<td><a href=@routes.Books.view(book.id)>@book.title</a></td>
+		<td>@book.sales</td>
+	</tr>
+	}
+	</tbody>
+	</table>
+  </div>
+</div>
+}
