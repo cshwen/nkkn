@@ -1,20 +1,33 @@
 package controllers;
 
+import java.util.List;
+
 import models.Book;
 import models.Category;
 import models.Comment;
 import models.User;
 import play.*;
+import play.cache.Cache;
 import play.data.Form;
 import play.mvc.*;
 
 import views.html.*;
 
 public class Application extends Controller {
-	public static Result index() { // 首页待定
+	public static Result index() { // 首页
+		List<Book> books = (List<Book>) Cache.get("nkkn.home.books");
+		List<Category> categorys = (List<Category>) Cache
+				.get("nkkn.home.category");
+		if (books == null) {
+			books = Book.findRandBooks();
+			Cache.set("nkkn.home.books", books, 60 * 1);
+		}
+		if (categorys == null) {
+			categorys = Category.findAll();
+			Cache.set("nkkn.home.category", categorys, 60 * 3);
+		}
 		return ok(index.render("欢迎光临 ",
-				User.getUser(session().get("username")), Category.findAll(),
-				Book.findRandBooks()));
+				User.getUser(session().get("username")), categorys, books));
 	}
 
 	public static Result page(int page) { // 分页待定
@@ -132,7 +145,12 @@ public class Application extends Controller {
 	}
 
 	public static Result ncomment() {
+		List<Comment> comments = (List<Comment>) Cache.get("nkkn.home.coments");
+		if (comments == null) {
+			comments = Comment.findLatest();
+			Cache.set("nkkn.home.coments", comments, 30 * 1);
+		}
 		return ok(ncomment.render(User.getUser(session().get("username")),
-				Comment.findLatest()));
+				comments));
 	}
 }
