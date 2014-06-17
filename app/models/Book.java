@@ -111,7 +111,13 @@ public class Book extends Model {
 			throw new Exception("图书《" + book.title + "》\t库存不足，请重新确认！");
 		book.sales += num;
 		book.stock -= num;
-		book.save();
+		book.update(bookid);
+//		 替代保存写法Ebean
+//		Ebean.createSqlUpdate(
+//				"update book set sales = :sales, stock = :stock where id=:id")
+//				.setParameter("id", bookid)
+//				.setParameter("sales", book.sales + num)
+//				.setParameter("stock", book.stock - num).execute();
 	}
 
 	public String getUITitle() { // 缩短书名
